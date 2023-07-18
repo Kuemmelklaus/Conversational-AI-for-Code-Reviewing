@@ -1,0 +1,3 @@
+# ChatGPT ABAP Linter
+
+TODO
