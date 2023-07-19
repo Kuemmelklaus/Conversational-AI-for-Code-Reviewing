@@ -1,9 +1,10 @@
 import os
 import openai
+import json
 # import pandas as pd
-from dotenv_vault import load_dotenv
+from dotenv import load_dotenv
 
-load_dotenv('/home/leon/OpenAI/API-Key.env')
+load_dotenv("./API-Key.env")
 
 api_key = os.getenv('OPENAI_KEY')
 openai.api_key = api_key
@@ -20,13 +21,13 @@ promtText = "Tell a joke"
 # print(data)
 
 response = openai.ChatCompletion.create(
-    model = "gpt-4",
+    model = "gpt-3.5-turbo",
     max_tokens = 500,
-    temperature = 1,
-    n = 3,
+    temperature = 0.3,
+    n = 1,
     messages = [
-        # {"role": "user", "content": "how do you answer all prompts in the array messages inside the ChatCompletion.create method"},
-        # {"role": "user", "content": "Write a joke"}
+        {"role": "system", "content": "Your name is 'ABAP-Linter' and your purpose is to assist development in the ABAP language."},
+        {"role": "user", "content": "Always answer in a systematic scheme. This has to includes the first and last line, a grading from 0 to 10 and a reason for that given grade."},
         {"role": "user", "content": promtText}
     ]
 )
