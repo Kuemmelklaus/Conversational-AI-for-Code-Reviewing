@@ -9,7 +9,7 @@ load_dotenv("./API-Key.env")
 api_key = os.getenv("OPENAI_KEY")
 openai.api_key = api_key
 
-promtText = "METHOD if_oo_adt_classrun~main. \n SELECT * FROM /DMO/FLIGHT INTO TABLE @DATA(flights). \n DATA(json_writer) = cl_sxml_string_writer=>create( type = if_sxml=>co_xt_json ). \n CALL TRANSFORMATION id SOURCE flights = flights \n RESULT XML json_writer."
+promtText = "METHOD if_oo_adt_classrun~main. \n SELECT * FROM /DMO/FLIGHT INTO TABLE @DATA(flights). \n DATA(json_writer) = cl_sxml_string_writer=>create( type = if_sxml=>co_xt_json ). \n CALL TRANSFORMATION id SOURCE flights = flights \n RESULT XML json_writer. \nTRY. \n DATA(reader) = cl_sxml_string_reader=>create( json_writer->get_output(  ) ). \n DATA(writer) = CAST if_sxml_writer( \n cl_sxml_string_writer=>create( type = if_sxml=>co_xt_json ) ). \n writer->set_option( option = if_sxml_writer=>co_opt_linebreaks ). \n writer->set_option( option = if_sxml_writer=>co_opt_indent ). \n reader->next_node( ). \n reader->skip_node( writer ). \n data(json_output) = cl_abap_codepage=>convert_from( CAST cl_sxml_string_writer( writer )->get_output( ) ). \n data(json_output) = CL_ABAP_CONV_CODEPAGE=>CREATE_IN(  )->CONVERT( CAST cl_sxml_string_writer( writer )->get_output( ) ). \n CATCH cx_sxml_parse_error. \n RETURN. \n ENDTRY. \n out->write( json_output ). \n ENDMETHOD."
 
 # models = openai.Model.list()
 # print(models)
@@ -20,7 +20,7 @@ promtText = "METHOD if_oo_adt_classrun~main. \n SELECT * FROM /DMO/FLIGHT INTO T
 
 response = openai.ChatCompletion.create(
     model = "gpt-3.5-turbo",
-    max_tokens = 500,
+    max_tokens = 1000,
     temperature = 0.3,
     n = 1,
     messages = [

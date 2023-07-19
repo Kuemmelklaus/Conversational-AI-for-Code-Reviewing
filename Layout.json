@@ -1,9 +1,21 @@
 {
-    "date": "2023-07-19T08:33:30Z",
-    "model": "gpt-3.5-turbo",
-    "tokens": 272,
-    "lineFrom": 25,
-    "lineTo": 49,
-    "grade": 4,
-    "reason": "This function is named 'add' although it performs an arithmetic multiplication. Please rename the function."
+  "date": "2023-07-19T08:33:30Z",
+  "model": "gpt-3.5-turbo",
+  "tokens": 272,
+  "lint": [
+    {
+      "lintID": 0,
+      "lineFrom": 25,
+      "lineTo": 49,
+      "grade": 4,
+      "reason": "This function is named 'add' although it performs an arithmetic multiplication. Please rename the function."
+    },
+    {
+      "lintID": 1,
+      "lineFrom": 4,
+      "lineTo": 17,
+      "grade": 9,
+      "reason": "The variable 'json_output' is declared twice with the same name. It is recommended to use a different variable name for one of them to avoid confusion."
+    }
+  ]
 }
