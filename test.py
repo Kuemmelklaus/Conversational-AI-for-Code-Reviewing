@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv("./API-Key.env")
 
-api_key = os.getenv('OPENAI_KEY')
+api_key = os.getenv("OPENAI_KEY")
 openai.api_key = api_key
 
 promtText = "METHOD if_oo_adt_classrun~main. \n SELECT * FROM /DMO/FLIGHT INTO TABLE @DATA(flights). \n DATA(json_writer) = cl_sxml_string_writer=>create( type = if_sxml=>co_xt_json ). \n CALL TRANSFORMATION id SOURCE flights = flights \n RESULT XML json_writer."
@@ -36,4 +36,4 @@ for choices in response["choices"]:
     print("==================")
 
 # print(response.choices[0].message.content)
-# print(response)
+print(response)
