@@ -31,11 +31,18 @@ response = openai.ChatCompletion.create(
 )
 
 for choices in response["choices"]:
-    print("{")
-    print('"date": "' + datetime.datetime.now().isoformat() + '",')
-    print('"model": "' + m + '",')
-    print('"tokens": ' + str(response.usage.total_tokens) + ',')
-    print(choices.message.content.replace("{", "", 1))
-    print("===========================")
+    lint = json.loads(choices.message.content)
+    lint["date"] = datetime.datetime.now().isoformat()
+    lint["model"] = m
+    lint["tokens"] = response.usage.total_tokens
+    print(lint)
 
-# print(response)
+#for choices in response["choices"]:
+#    print("{")
+#    print('"date": "' + datetime.datetime.now().isoformat() + '",')
+#    print('"model": "' + m + '",')
+#    print('"tokens": ' + str(response.usage.total_tokens) + ',')
+#    print(choices.message.content.replace("{", "", 1))
+#    print("===========================")
+
+# print(choices.message.content)
