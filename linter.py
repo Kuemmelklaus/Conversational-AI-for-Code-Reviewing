@@ -28,6 +28,8 @@ class Linter:
     #Constuct
     def __init__(self, programmingLanguage, code):
 
+        self.done = False
+
         #Select the GPT model ("gpt-3.5-turbo", "gpt-4"...)
         m = "gpt-3.5-turbo-16k"
 
@@ -57,9 +59,10 @@ class Linter:
             try:
                 self.lint = json.loads(choices1.message.content)
                 self.lint["date"] = datetime.datetime.now().isoformat()
-                self.lint["model"] = self.m
+                self.lint["model"] = m
                 self.lint["tokens"] = response1.usage.total_tokens
                 print(choices1.message.content)
             except:
                 print("Response is not in JSON!")
                 print(choices1.message.content)
+            self.done = True
