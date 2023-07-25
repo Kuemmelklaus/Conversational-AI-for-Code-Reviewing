@@ -1,3 +1,6 @@
 API-Key.env
 env
 __pycache__
+
+# drawio backup files
+.$*.bkp

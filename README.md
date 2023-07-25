@@ -1,5 +1,7 @@
 # ChatGPT ABAP Linter
 
+![](architecture.drawio.png)
+
 ...
 
 # Todo
