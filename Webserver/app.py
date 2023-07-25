@@ -1,9 +1,9 @@
 import sys
 import os
 from apiflask import APIFlask, Schema, abort
-from apiflask.fields import Integer, String
+from apiflask.fields import String
 sys.path.append(os.getcwd() + "/..")
-from linter import Linter
+from dummielinter import Linter
 #from apiflask.validators import Length, OneOf
 
 app = APIFlask(__name__, title = "Linter", version = "1.0")
@@ -26,5 +26,3 @@ def lint(json_data):
     print(json_data["programmingLanguage"])
     linter = Linter(json_data["programmingLanguage"], json_data["code"])
     return linter.getLint()
-
-
