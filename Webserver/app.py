@@ -1,6 +1,7 @@
 import sys
 import os
 import time
+import json
 from apiflask import APIFlask, Schema, abort
 from apiflask.fields import String
 sys.path.append(os.getcwd() + "/..")
@@ -29,6 +30,6 @@ def lint(json_data):
         time.sleep(1)
         if(i < 120):
             print("Timemout!")
-            break
+            return json.dumps('{"success": "False"}')
         i += 1
     return linter.getLint()
