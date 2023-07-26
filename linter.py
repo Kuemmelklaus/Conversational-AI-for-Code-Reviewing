@@ -37,7 +37,7 @@ class Linter:
         m = "gpt-3.5-turbo-16k"
 
         #Select the maximum response tokens
-        maxTok = 100
+        maxTok = 3000
 
         #load example layout
         with open("../Layout.json", "r") as l:
@@ -56,21 +56,26 @@ class Linter:
         ]
 
         #generate response
+        print("Generating response ...")
         response1 = self.createResponse(m, maxTok, 0.1, messages)
 
         for choices1 in response1["choices"]:
             try:
+                #print(response1)
                 self.lint = json.loads(choices1.message.content)
                 self.lint["date"] = datetime.datetime.now().isoformat()
                 self.lint["model"] = m
-                self.lint["tokens"] = response1.usage.total_tokens
+                self.lint["total_tokens"] = response1.usage.total_tokens
+                self.lint["completion_tokens"] = response1.usage.completion_tokens
                 self.lint["code"] = code
+                self.lint["programmingLanguage"] = programmingLanguage
                 self.done = True
                 self.lint["success"] = "True"
-                print(choices1.message.content)
+                print("Successful after one try.")
+                #print(choices1.message.content)
             except json.decoder.JSONDecodeError:
-                print("Response is not in JSON!")
-                print(choices1.message.content)
+                print("Response is not in JSON!\nRetrying ...")
+                #print(choices1.message.content)
                 messages.append(Message("user", "Your response was not a valid JSON. Please try again."))
                 response2 = self.createResponse(m, maxTok, 0.1, messages)
                 for choices2 in response2["choices"]:
@@ -78,11 +83,14 @@ class Linter:
                         self.lint = json.loads(choices2.message.content)
                         self.lint["date"] = datetime.datetime.now().isoformat()
                         self.lint["model"] = m
-                        self.lint["tokens"] = response2.usage.total_tokens
+                        self.lint["total_tokens"] = response2.usage.total_tokens
+                        self.lint["completion_tokens"] = response2.usage.completion_tokens
                         self.lint["code"] = code
+                        self.lint["programmingLanguage"] = programmingLanguage
                         self.done = True
                         self.lint["success"] = "True"
-                        print(choices2.message.content)
+                        print("Successful after two tries.")
+                        #print(choices2.message.content)
                     except json.decoder.JSONDecodeError:
-                        print("Response is not in JSON again!")
+                        print("Response is not in JSON again!\nStopped!")
                         self.lint = json.loads('{"success": "False"}')
