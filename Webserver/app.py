@@ -4,7 +4,7 @@ import time
 from apiflask import APIFlask, Schema, abort
 from apiflask.fields import String
 sys.path.append(os.getcwd() + "/..")
-from dummielinter import Linter
+from linter import Linter
 
 app = APIFlask(__name__, title = "Linter", version = "1.0")
 
@@ -24,6 +24,11 @@ class Lin(Schema):
 @app.input(Lin, location = "json")
 def lint(json_data):
     linter = Linter(json_data["programmingLanguage"], json_data["code"])
+    i = 0
     while(not linter.done):
         time.sleep(1)
+        if(i < 120):
+            print("Timemout!")
+            break
+        i += 1
     return linter.getLint()

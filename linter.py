@@ -24,6 +24,9 @@ class Linter:
 
     def getLint(self):
         return self.lint
+    
+    #def escape(self, string):
+        
 
     #Constuct
     def __init__(self, programmingLanguage, code):
@@ -61,8 +64,23 @@ class Linter:
                 self.lint["date"] = datetime.datetime.now().isoformat()
                 self.lint["model"] = m
                 self.lint["tokens"] = response1.usage.total_tokens
+                self.lint["code"] = code
                 print(choices1.message.content)
-            except:
+            except json.decoder.JSONDecodeError:
                 print("Response is not in JSON!")
                 print(choices1.message.content)
+                messages.append(Message("user", "Your response was not a valid JSON. Please try again."))
+                response2 = self.createResponse(m, maxTok, 0.1, messages)
+                for choices2 in response2["choices"]:
+                    try:
+                        self.lint = json.loads(choices2.message.content)
+                        self.lint["date"] = datetime.datetime.now().isoformat()
+                        self.lint["model"] = m
+                        self.lint["tokens"] = response2.usage.total_tokens
+                        self.lint["code"] = code
+                        print(choices2.message.content)
+                    except json.decoder.JSONDecodeError:
+                        print("Response is not in JSON again!")
+                        quit()
+
             self.done = True
