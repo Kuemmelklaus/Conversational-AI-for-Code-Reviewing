@@ -28,8 +28,8 @@ def lint(json_data):
     i = 0
     while(not linter.done):
         time.sleep(1)
-        if(i < 120):
+        if(i < 180):
             print("Timemout!")
-            return json.dumps('{"success": "False"}')
+            return json.loads('{"success": "False"}')
         i += 1
     return linter.getLint()

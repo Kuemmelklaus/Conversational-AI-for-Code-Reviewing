@@ -37,7 +37,7 @@ class Linter:
         m = "gpt-3.5-turbo-16k"
 
         #Select the maximum response tokens
-        maxTok = 1000
+        maxTok = 100
 
         #load example layout
         with open("../Layout.json", "r") as l:
@@ -65,6 +65,8 @@ class Linter:
                 self.lint["model"] = m
                 self.lint["tokens"] = response1.usage.total_tokens
                 self.lint["code"] = code
+                self.done = True
+                self.lint["success"] = "True"
                 print(choices1.message.content)
             except json.decoder.JSONDecodeError:
                 print("Response is not in JSON!")
@@ -78,9 +80,9 @@ class Linter:
                         self.lint["model"] = m
                         self.lint["tokens"] = response2.usage.total_tokens
                         self.lint["code"] = code
+                        self.done = True
+                        self.lint["success"] = "True"
                         print(choices2.message.content)
                     except json.decoder.JSONDecodeError:
                         print("Response is not in JSON again!")
-                        quit()
-
-            self.done = True
+                        self.lint = json.loads('{"success": "False"}')
