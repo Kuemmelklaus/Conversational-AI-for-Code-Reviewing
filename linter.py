@@ -56,7 +56,7 @@ class Linter:
 
         #load few-shot example
         with open("../PythonExamples/example.py") as c:
-            expl = c.read()
+            example = c.read()
         
         #load few-shot answer
         with open("../exampleLint.json") as g:
@@ -70,7 +70,7 @@ class Linter:
         #initail prompts
         messages = [
             Message("system", "You are a code linter for the " + programmingLanguage + " programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo."),
-            Message("user", "Here is some Python code:\n" + expl),
+            Message("user", "Here is some Python code:\n" + example),
             Message("assistant", lint),
             Message("user", "Here is some more " + programmingLanguage + " code:\n" + code)
         ]
