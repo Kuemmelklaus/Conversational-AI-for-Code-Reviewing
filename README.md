@@ -6,9 +6,9 @@
 
 # Todo
 
-- [ ] Python Code für's Prototyping verwenden
+- [x] Python Code für's Prototyping verwenden
 - [ ] Few-Shot Prompt
-- [ ] JSON Validierung mit Retry
+- [x] JSON Validierung mit Retry
 
 ## Future
 

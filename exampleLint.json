@@ -1,0 +1,33 @@
+{"lint": [
+    {
+      "lineFrom": 1,
+      "lineTo": 1,
+      "message": "The 'sys' module is imported but not used"
+    },
+    {
+      "lineFrom": 1,
+      "lineTo": 1,
+      "message": "Multiple imports are in one line. It is common practice to import theese modules separately"
+    },
+    {
+      "lineFrom": 1,
+      "lineTo": 1,
+      "message": "The semicolon is unnecessary, this criticism can be repeated further down"
+    },
+    {
+      "lineFrom": 5,
+      "lineTo": 6,
+      "message": "Missing whitespaces around the operator '='"
+    },
+    {
+      "lineFrom": 5,
+      "lineTo": 5,
+      "message": "Inconsistant whitespaces inside '(' and ')' and behind ','. Suggestion: '(1, 2, 3, 'a')'. This criticism can be repeated further down"
+    },
+    {
+      "lineFrom": 6,
+      "lineTo": 8,
+      "message": "Missing whitespaces after ':'"
+    }
+  ]
+  }
