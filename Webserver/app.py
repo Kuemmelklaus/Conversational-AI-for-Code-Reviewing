@@ -30,6 +30,6 @@ def lint(json_data):
         time.sleep(1)
         if(i < 300):
             print("Timemout!")
-            return json.loads('{"success": "False"}')
+            return json.loads('{"success": false}')
         i += 1
     return linter.getLint()

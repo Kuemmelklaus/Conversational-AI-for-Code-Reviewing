@@ -22,13 +22,14 @@ class Linter:
         )
         return r
     
-    def addFields(self, lint, model, response, code, programmingLanguage):
+    def addFields(self, lint, model, response, code, programmingLanguage, success):
         lint["date"] = datetime.datetime.now().isoformat()
         lint["model"] = model
         lint["total_tokens"] = response.usage.total_tokens
         lint["completion_tokens"] = response.usage.completion_tokens
         lint["code"] = code
         lint["programmingLanguage"] = programmingLanguage
+        lint["success"] = success
         return lint
 
 
@@ -47,7 +48,7 @@ class Linter:
         m = "gpt-4"
 
         #Select the maximum response tokens
-        maxTok = 4000
+        maxTok = 2000
 
         #load example layout
         with open("../Layout.json", "r") as l:
@@ -68,12 +69,10 @@ class Linter:
 
         #initail prompts
         messages = [
-            Message("system", "You are a code linter for the " + programmingLanguage + " programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo. Stop generating messages at the end of the code and do not try to evaluate empty lines!"),
-            Message("user", "Please help me improve coding in the " + programmingLanguage + " programming language as best as you can. Do not repeat the same message, instead just include 'this criticism can be repeated further down' in the first message which contains the repeating message."),
-            Message("assistant", "I will try to give valueble advise using the following template:\n" + layout + "\nPlease provide some code in " + programmingLanguage + "."),
+            Message("system", "You are a code linter for the " + programmingLanguage + " programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo."),
             Message("user", "Here is some Python code:\n" + expl),
             Message("assistant", lint),
-            Message("user", "Great answer, please do it again for the following " + programmingLanguage + " code:" + code)
+            Message("user", "Here is some more " + programmingLanguage + " code:\n" + code)
         ]
 
         #generate response
@@ -85,9 +84,8 @@ class Linter:
                 print(response1)
                 print("========================================")
                 self.lint = json.loads(choices1.message.content)
-                self.lint = self.addFields(self.lint, m, response1, code, programmingLanguage)
+                self.lint = self.addFields(self.lint, m, response1, code, programmingLanguage, True)
                 self.done = True
-                self.lint["success"] = "True"
                 print("Successful after one try.")
                 #print(choices1.message.content)
             except json.decoder.JSONDecodeError:
@@ -100,11 +98,10 @@ class Linter:
                         print(response2)
                         print("========================================")
                         self.lint = json.loads(choices2.message.content)
-                        self.lint = self.addFields(self.lint, m, response2, code, programmingLanguage)
+                        self.lint = self.addFields(self.lint, m, response2, code, programmingLanguage, True)
                         self.done = True
-                        self.lint["success"] = "True"
                         print("Successful after two tries.")
                         #print(choices2.message.content)
                     except json.decoder.JSONDecodeError:
                         print("Response is not in JSON again!\nStopped!")
-                        self.lint = json.loads('{"success": "False"}')
+                        self.lint = json.loads('{"success": false}')
