@@ -44,7 +44,7 @@ class Linter:
         self.done = False
 
         #Select the GPT model ("gpt-3.5-turbo", "gpt-4", "gpt-3.5-turbo-16k" ...)
-        m = "gpt-3.5-turbo-16k"
+        m = "gpt-4"
 
         #Select the maximum response tokens
         maxTok = 4000
@@ -68,8 +68,8 @@ class Linter:
 
         #initail prompts
         messages = [
-            Message("system", "You are a code linter for the " + programmingLanguage + " programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo."),
-            Message("user", "Please help me improve coding in the " + programmingLanguage + " programming language as best as you can. Do not repeat the same message, instead just include 'this criticism can be repeated further down' in the first message which contains the repeating message. Do not mention indentations."),
+            Message("system", "You are a code linter for the " + programmingLanguage + " programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo. Stop generating messages at the end of the code and do not try to evaluate empty lines!"),
+            Message("user", "Please help me improve coding in the " + programmingLanguage + " programming language as best as you can. Do not repeat the same message, instead just include 'this criticism can be repeated further down' in the first message which contains the repeating message."),
             Message("assistant", "I will try to give valueble advise using the following template:\n" + layout + "\nPlease provide some code in " + programmingLanguage + "."),
             Message("user", "Here is some Python code:\n" + expl),
             Message("assistant", lint),

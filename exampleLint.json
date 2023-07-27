@@ -28,6 +28,11 @@
       "lineFrom": 6,
       "lineTo": 8,
       "message": "Missing whitespaces after ':'"
+    },
+    {
+      "lineFrom": 6,
+      "lineTo": 9,
+      "message": "Long code should be split into more lines."
     }
   ]
-  }
+}

@@ -28,7 +28,7 @@ def lint(json_data):
     i = 0
     while(not linter.done):
         time.sleep(1)
-        if(i < 180):
+        if(i < 300):
             print("Timemout!")
             return json.loads('{"success": "False"}')
         i += 1
