@@ -46,16 +46,6 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 ├── prompts.txt                                 - contains different prompts
 ├── requirements.txt                            - pip requirements
 └── test.py                                     - script that directly sends requests to the openai API
-
-
-
-
-
-
-
-
-
-
 ```
 
 

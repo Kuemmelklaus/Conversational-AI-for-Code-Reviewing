@@ -51,15 +51,17 @@ class Linter:
         maxTok = 2000
 
         #load example layout
-        with open("../Layout.json", "r") as l:
-            layout = l.read()
+        #with open("../Layout.json", "r") as l:
+        #    layout = l.read()
 
         #load few-shot example
-        with open("../PythonExamples/example.py") as c:
+        #with open("../PythonExamples/example.py") as c:
+        with open("../PythonExamples/guessinggame.py") as c:
             example = c.read()
         
         #load few-shot answer
-        with open("../exampleLint.json") as g:
+        #with open("../exampleLint.json") as g:
+        with open("../guessinggameLint.json") as g:
             lint = g.read()
 
         #load the openai api key from the file "API-Key.env"
@@ -69,10 +71,10 @@ class Linter:
 
         #initail prompts
         messages = [
-            Message("system", "You are a code linter for the " + programmingLanguage + " programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo."),
-            Message("user", "Here is some Python code:\n" + example),
+            Message("system", f"Your task is to review code in the {programmingLanguage} programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo."),
+            Message("user", f"Here is some Python code:\n{example}"),
             Message("assistant", lint),
-            Message("user", "Here is some more " + programmingLanguage + " code:\n" + code)
+            Message("user", f"Here is some more {programmingLanguage} code:\n{code}")
         ]
 
         #generate response
@@ -82,7 +84,7 @@ class Linter:
         for choices1 in response1["choices"]:
             try:
                 print(response1)
-                print("========================================")
+                print("\n========================================\n")
                 self.lint = json.loads(choices1.message.content)
                 self.lint = self.addFields(self.lint, m, response1, code, programmingLanguage, True)
                 self.done = True
@@ -96,7 +98,7 @@ class Linter:
                 for choices2 in response2["choices"]:
                     try:
                         print(response2)
-                        print("========================================")
+                        print("\n========================================\n")
                         self.lint = json.loads(choices2.message.content)
                         self.lint = self.addFields(self.lint, m, response2, code, programmingLanguage, True)
                         self.done = True
