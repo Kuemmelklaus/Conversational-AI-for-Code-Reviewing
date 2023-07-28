@@ -45,7 +45,7 @@ class Linter:
         self.done = False
 
         #Select the GPT model ("gpt-3.5-turbo", "gpt-4", "gpt-3.5-turbo-16k" ...)
-        m = "gpt-4"
+        m = "gpt-3.5-turbo-16k"
 
         #Select the maximum response tokens
         maxTok = 2000
