@@ -10,7 +10,14 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
     OPENAI_KEY=<your API key>
     ```
 3. Install all required python packages
-4. Start the webserver inside the Webserver/ folder with `flask run`
+4. Start the webserver inside the ./Webserver/ folder with `flask run`
+5. Send a ***POST*** request to ***http://127.0.0.1:5000/linter*** containing a ***application/json*** body in the following format:
+    ```
+    {
+        "programmingLanguage": "your Programming language",
+        "code": "your code"
+    }
+    ```
 
 ![](architecture.drawio.png)
 
