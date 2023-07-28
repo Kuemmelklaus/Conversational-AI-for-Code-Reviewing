@@ -8,6 +8,11 @@
       "lineFrom": 7,
       "lineTo": 31,
       "message": "You should learn about string interpolation, which is the feature where variables inside a string are replaced with their values. This type of string starts with an 'f' before the opening quotes"
+    },
+    {
+      "lineFrom": 31,
+      "lineTo": 31,
+      "message": "guessesleft is guaranteed to be 0. The program logic doesn't allow it to reach this line unless the user is out of guesses."
     }
   ]
 }
