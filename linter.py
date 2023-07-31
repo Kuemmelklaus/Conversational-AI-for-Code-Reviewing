@@ -8,10 +8,10 @@ from dotenv import load_dotenv
 class Linter:
 
     #method to create a response with a model, max response tokens, temperature, and message array
-    def createResponse(self, mod, tok, tmp, msg):
+    def create_response(self, mod, tok, tmp, msg):
         mes = []
         for n in msg:
-            mes.append(n.getMessage())
+            mes.append(n.get_message())
 
         r = openai.ChatCompletion.create(
             model = mod,
@@ -22,7 +22,7 @@ class Linter:
         )
         return r
     
-    def addFields(self, lint, model, response, code, programmingLanguage, success):
+    def add_metadata(self, lint, model, response, code, programmingLanguage, success):
         lint["date"] = datetime.datetime.now().isoformat()
         lint["model"] = model
         lint["total_tokens"] = response.usage.total_tokens
@@ -33,7 +33,7 @@ class Linter:
         return lint
 
 
-    def getLint(self):
+    def get_lint(self):
         return self.lint
     
     #def escape(self, string):
@@ -71,7 +71,7 @@ class Linter:
 
         #initail prompts
         messages = [
-            Message("system", f"Your task is to review code in the {programmingLanguage} programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo."),
+            Message("system", f"Your task is to review code in the {programmingLanguage} programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo. The message can not include missing docstrings or inconsistent Indentations."),
             Message("user", f"Here is some Python code:\n{example}"),
             Message("assistant", lint),
             Message("user", f"Here is some more {programmingLanguage} code:\n{code}")
@@ -79,14 +79,14 @@ class Linter:
 
         #generate response
         print("Generating response ...")
-        response1 = self.createResponse(m, maxTok, 0.1, messages)
+        response1 = self.create_response(m, maxTok, 0.1, messages)
 
         for choices1 in response1["choices"]:
             try:
                 print(response1)
                 print("\n========================================\n")
                 self.lint = json.loads(choices1.message.content)
-                self.lint = self.addFields(self.lint, m, response1, code, programmingLanguage, True)
+                self.lint = self.add_metadata(self.lint, m, response1, code, programmingLanguage, True)
                 self.done = True
                 print("Successful after one try.")
                 #print(choices1.message.content)
@@ -94,13 +94,13 @@ class Linter:
                 print("Response is not in JSON!\nRetrying ...")
                 #print(choices1.message.content)
                 messages.append(Message("user", "Your response was not a valid JSON. Please try again."))
-                response2 = self.createResponse(m, maxTok, 0.1, messages)
+                response2 = self.create_response(m, maxTok, 0.1, messages)
                 for choices2 in response2["choices"]:
                     try:
                         print(response2)
                         print("\n========================================\n")
                         self.lint = json.loads(choices2.message.content)
-                        self.lint = self.addFields(self.lint, m, response2, code, programmingLanguage, True)
+                        self.lint = self.add_metadata(self.lint, m, response2, code, programmingLanguage, True)
                         self.done = True
                         print("Successful after two tries.")
                         #print(choices2.message.content)

@@ -62,7 +62,7 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 # Todo
 
 - [x] Python Code für's Prototyping verwenden
-- [ ] Few-Shot Prompt
+- [x] Few-Shot Prompt
 - [x] JSON Validierung mit Retry
 
 - [ ] Code Review vs "Linter"

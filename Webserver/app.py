@@ -32,4 +32,4 @@ def lint(json_data):
             print("Timemout!")
             return json.loads('{"success": false}')
         i += 1
-    return linter.getLint()
+    return linter.get_lint()

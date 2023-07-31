@@ -8,6 +8,6 @@ class Message:
         self.role = role
         self.message = msg
     
-    def getMessage(self):
+    def get_message(self):
         msg = {"role": self.role, "content": self.message}
         return msg
