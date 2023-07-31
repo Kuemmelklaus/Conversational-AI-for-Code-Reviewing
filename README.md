@@ -24,12 +24,13 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 ```
 .
 ├── ABAPExamples/                               - contains example code in ABAP
-│   ├── zcl_abap_to_json.clas.abap              - 
-│   └── zcl_fs_ref_perf_testing.clas.abap       - 
+│   ├── zcl_abap_to_json.clas.abap              - used as a input
+│   └── zcl_fs_ref_perf_testing.clas.abap       - used as a input
 ├── PythonExamples/                             - contains example code in Python
-│   ├── example.py                              - used as a few-shot prompt
-│   ├── heap.py                                 - 
-│   └── main.py                                 - 
+│   ├── example.py                              - was used as a few-shot prompt
+│   ├── guessinggame.py                         - used as a few-shot prompt
+│   ├── heap.py                                 - used as a input
+│   └── main.py                                 - used as a input
 ├── Webserver/                                  - 
 │   └── app.py                                  - contains the flask webserver
 ├── .gitignore                                  - labels the files ignored by git
@@ -39,7 +40,8 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 ├── architecture.drawio.png                     - picture explaining the architecture 
 ├── client.json                                 - example of POST request body
 ├── dummielinter.py                             - just returns some message
-├── exampleLint.json                            - used as a few-shot prompt
+├── exampleLint.json                            - was used as a few-shot prompt
+├── guessinggameLint.json                       - used as a few-shot prompt
 ├── jsonify.py                                  - script to convert code into the correct format for JSON
 ├── linter.py                                   - called by the flask server, sends requests to the openai API
 ├── message.py                                  - generates messages in the format used by the openai API
