@@ -22,6 +22,7 @@ class Linter:
         )
         return r
     
+    #add metadata to response JSON
     def add_metadata(self, lint, model, response, code, programmingLanguage, success):
         lint["date"] = datetime.datetime.now().isoformat()
         lint["model"] = model
@@ -69,7 +70,7 @@ class Linter:
         api_key = os.getenv("OPENAI_KEY")
         openai.api_key = api_key
 
-        #initail prompts
+        #initail prompts + few-shot example
         messages = [
             Message("system", f"Your task is to review code in the {programmingLanguage} programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo. The message can not include missing docstrings or inconsistent Indentations."),
             Message("user", f"Here is some Python code:\n{example}"),
