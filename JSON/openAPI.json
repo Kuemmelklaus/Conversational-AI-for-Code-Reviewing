@@ -1,0 +1,45 @@
+{
+    "openapi": 3.0,
+    "info": {
+        "version": 1.0,
+        "title": "ChatGPT-ABAP-Linter"
+    },
+    "paths": {
+        "/health": {
+            "get": {
+                "description": "checks if the server is running",
+                "responses": {
+                    "200": {
+                        "description": "confirms server is running",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "Object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "String",
+                                            "example": "Server is running!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+
+
+
+        "application/json": {
+            "examples": {
+                "200": {
+                    "description": "",
+                    "programmingLanguage": "Brainfuck",
+                    "code": ">++++++++[<+++++++++>-]<.>++++[<+++++++>-]<+.+++++++..+++.>>++++++[<+++++++>-]<+\n+.------------.>++++++[<+++++++++>-]<+.<.+++.------.--------.>>>++++[<++++++++>-\n]<+."
+                }
+            }
+        }
+    }
+}

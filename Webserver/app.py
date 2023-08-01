@@ -2,7 +2,7 @@ import sys
 import os
 import time
 import json
-from apiflask import APIFlask, Schema, abort
+from apiflask import APIFlask, Schema
 from apiflask.fields import String
 sys.path.append(os.getcwd() + "/..")
 from linter import Linter
