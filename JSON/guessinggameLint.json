@@ -7,7 +7,7 @@
     {
         "lineFrom": 7,
         "lineTo": 31,
-        "message": "You should learn about string interpolation, which is the feature where variables inside a string are replaced with their values. This type of string starts with an 'f' before the opening quotes"
+        "message": "A good practise is to use string interpolation. This is a feature where variables inside a string are replaced with their values. This type of string starts with an 'f' before the opening quotes"
     },
     {
         "lineFrom": 31,

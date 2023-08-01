@@ -52,7 +52,7 @@ class Linter:
         maxTok = 2000
 
         #load example layout
-        #with open("../Layout.json", "r") as l:
+        #with open("../JSON/Layout.json", "r") as l:
         #    layout = l.read()
 
         #load few-shot example
@@ -61,8 +61,8 @@ class Linter:
             example = c.read()
         
         #load few-shot answer
-        #with open("../exampleLint.json") as g:
-        with open("../guessinggameLint.json") as g:
+        #with open("../JSON/exampleLint.json") as g:
+        with open("../JSON/guessinggameLint.json") as g:
             lint = g.read()
 
         #load the openai api key from the file "API-Key.env"
@@ -72,10 +72,10 @@ class Linter:
 
         #initail prompts + few-shot example
         messages = [
-            Message("system", f"Your task is to review code in the {programmingLanguage} programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo. The message can not include missing docstrings or inconsistent Indentations."),
+            Message("system", f"Your task is to review code in the {programmingLanguage} programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo. The message can not include inconsistent Indentations or missing docstrings."),
             Message("user", f"Here is some Python code:\n{example}"),
             Message("assistant", lint),
-            Message("user", f"Here is some more {programmingLanguage} code:\n{code}")
+            Message("user", f"Great response! Here is some more {programmingLanguage} code:\n{code}")
         ]
 
         #generate response

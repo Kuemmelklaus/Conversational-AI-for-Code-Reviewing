@@ -50,16 +50,16 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 └── test.py                                     - script that directly sends requests to the openai API
 ```
 
+# Sources
 
-
-
-
-
+- [guessinggame.py](https://codereview.stackexchange.com/questions/286118/guessing-game-in-python-which-uses-a-while-loop-with-3-guesses,)
+- [example.py](https://www.codingem.com/python-linter/)
+- [main.py](https://pythongeeks.org/python-calculator/)
+- [heap.py](https://www.geeksforgeeks.org/python-program-for-heap-sort/)
+- [ABAP examples](https://github.com/SAP-samples/abap-oo-basics)
 
 
 ![](architecture.drawio.png)
-
-...
 
 # Todo
 
