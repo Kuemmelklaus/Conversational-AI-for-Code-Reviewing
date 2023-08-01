@@ -1,0 +1,55 @@
+openapi: 3.0.3
+info:
+  title: ChatGPT-ABAP-Linter
+  version: 1.0.0
+paths:
+  /health:
+    get:
+      description: Checks if the server is running
+      responses:
+        '200':
+          description: Confirms server is running
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Server is running!
+  /linter:
+    post:
+      description: Reviews code sent in body
+      responses: 
+        '200':
+          description: Sends reviewed code
+          content: 
+            application/json: 
+              schema: 
+                type: object
+                properties: 
+                  code:
+                    type: string
+                    example: print(Hello World!)
+                  completion_tokens:
+                    type: integer
+                    example: 420
+                  date:
+                    type: string
+                    example: 2023-08-01T11:30:22.514049
+                  model:
+                    type: string
+                    example: gpt-3.5-turbo-16k
+                  programmingLanguage:
+                    type: string
+                    example: Python
+                  success:
+                    type: boolean
+                    example: True
+                  total_tokens:
+                    type: integer
+                    example: 2696
+                  lint:
+                    type: array
+                    example: 
+                      
