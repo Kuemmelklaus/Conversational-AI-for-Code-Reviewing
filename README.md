@@ -26,22 +26,23 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 ├── ABAPExamples/                               - contains example code in ABAP
 │   ├── zcl_abap_to_json.clas.abap              - used as a input
 │   └── zcl_fs_ref_perf_testing.clas.abap       - used as a input
+├── JSON/                                       - contains JSON files
+│   ├── Layout.json                             - format for the GPT output
+│   ├── LayoutTemplate.json                     - example GPT output
+│   ├── client.json                             - example of POST request body
+│   ├── exampleLint.json                        - was used as a few-shot prompt
+│   └── guessinggameLint.json                   - used as a few-shot prompt
 ├── PythonExamples/                             - contains example code in Python
 │   ├── example.py                              - was used as a few-shot prompt
 │   ├── guessinggame.py                         - used as a few-shot prompt
-│   ├── heap.py                                 - used as a input
-│   └── main.py                                 - used as a input
+│   ├── heap.py                                 - used as an input
+│   └── main.py                                 - used as an input
 ├── Webserver/                                  - 
 │   └── app.py                                  - contains the flask webserver
 ├── .gitignore                                  - labels the files ignored by git
-├── Layout.json                                 - format for the GPT output
-├── LayoutTemplate.json                         - example GPT output
 ├── README.md                                   - this README
 ├── architecture.drawio.png                     - picture explaining the architecture 
-├── client.json                                 - example of POST request body
 ├── dummielinter.py                             - just returns some message
-├── exampleLint.json                            - was used as a few-shot prompt
-├── guessinggameLint.json                       - used as a few-shot prompt
 ├── jsonify.py                                  - script to convert code into the correct format for JSON
 ├── linter.py                                   - called by the flask server, sends requests to the openai API
 ├── message.py                                  - generates messages in the format used by the openai API
