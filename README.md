@@ -31,7 +31,8 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 │   ├── LayoutTemplate.json                     - example GPT output
 │   ├── client.json                             - example of POST request body
 │   ├── exampleLint.json                        - was used as a few-shot prompt
-│   └── guessinggameLint.json                   - used as a few-shot prompt
+│   ├── guessinggameLint.json                   - used as a few-shot prompt
+│   └── openAPI.json                            - did describe the usage of the webserver according to the openAPI spec
 ├── PythonExamples/                             - contains example code in Python
 │   ├── example.py                              - was used as a few-shot prompt
 │   ├── guessinggame.py                         - used as a few-shot prompt
@@ -46,6 +47,7 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 ├── jsonify.py                                  - script to convert code into the correct format for JSON
 ├── linter.py                                   - called by the flask server, sends requests to the openai API
 ├── message.py                                  - generates messages in the format used by the openai API
+├── openapi.yml     	                        - describes the usage of the webserver according to the openAPI spec
 ├── prompts.txt                                 - contains different prompts
 ├── requirements.txt                            - pip requirements
 └── test.py                                     - script that directly sends requests to the openai API
