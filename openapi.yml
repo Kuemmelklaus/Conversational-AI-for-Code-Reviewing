@@ -2,6 +2,7 @@ openapi: 3.0.3
 info:
   title: ChatGPT-ABAP-Linter
   version: 1.0.0
+  description: This API is trying to give helpful coding advices in Python and hopefully one day in ABAP as well. 
 paths:
   /health:
     get:

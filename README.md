@@ -1,5 +1,7 @@
 # ChatGPT ABAP Linter
 
+This API is trying to give helpful coding advices in Python and hopefully one day in ABAP as well.
+
 # Developer Setup
 
 Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
@@ -59,7 +61,7 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 - [example.py](https://www.codingem.com/python-linter/)
 - [main.py](https://pythongeeks.org/python-calculator/)
 - [heap.py](https://www.geeksforgeeks.org/python-program-for-heap-sort/)
-- [ABAP examples](https://github.com/SAP-samples/abap-oo-basics)
+- [ABAP examples/](https://github.com/SAP-samples/abap-oo-basics)
 
 
 ![](architecture.drawio.png)
