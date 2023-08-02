@@ -20,36 +20,84 @@ paths:
   /linter:
     post:
       description: Reviews code sent in body
+      requestBody:
+        content: 
+          application/json: 
+            schema: 
+              type: object
+              properties:
+                progammingLanguage:
+                  type: string
+                  example: Python
+                code:
+                  type: string
+                  example: print(Hello World!)
       responses: 
         '200':
           description: Sends reviewed code
           content: 
             application/json: 
               schema: 
-                type: object
-                properties: 
-                  code:
-                    type: string
-                    example: print(Hello World!)
-                  completion_tokens:
-                    type: integer
-                    example: 420
-                  date:
-                    type: string
-                    example: 2023-08-01T11:30:22.514049
-                  model:
-                    type: string
-                    example: gpt-3.5-turbo-16k
-                  programmingLanguage:
-                    type: string
-                    example: Python
-                  success:
-                    type: boolean
-                    example: True
-                  total_tokens:
-                    type: integer
-                    example: 2696
-                  lint:
-                    type: array
-                    example: 
-                      
+                $ref: '#/components/schemas/response'
+              examples:
+                example 1:
+                  value:
+                    code: print(Hello World!)
+                    completion_tokens: 420
+                    date: 2023-08-01T11:30:22.514049
+                    model: gpt-3.5-turbo-16k
+                    programmingLanguage: Python
+                    success: True
+                    total_tokens: 2696
+                    lint:
+                      - lineFrom: 1
+                        lineTo: 5
+                        message: The 'except' block in the 'submit' function catches all exceptions without specifying which exceptions to catch. It is generally recommended to catch specific exceptions rather than catching all exceptions, as it can make it harder to debug and handle specific errors.
+                      - lineFrom: 12
+                        lineTo: 12
+                        message: "There is a trailing comma in the list. It is not necessary and can be removed"
+                example 2:
+                  value:
+                    success: False
+components:
+  schemas:
+    lint:
+      type: object
+      properties:
+        lineFrom:
+          type: integer
+          example: 1
+        lineTo:
+          type: integer
+          example: 5
+        message:
+          type: string
+          example: The 'except' block in the 'submit' function catches all exceptions without specifying which exceptions to catch. It is generally recommended to catch specific exceptions rather than catching all exceptions, as it can make it harder to debug and handle specific errors.
+    response:
+      type: object
+      properties: 
+        code:
+          type: string
+          example: print(Hello World!)
+        completion_tokens:
+          type: integer
+          example: 420
+        date:
+          type: string
+          example: 2023-08-01T11:30:22.514049
+        model:
+          type: string
+          example: gpt-3.5-turbo-16k
+        programmingLanguage:
+          type: string
+          example: Python
+        success:
+          type: boolean
+          example: True
+        total_tokens:
+          type: integer
+          example: 2696
+        lint:
+          type: array
+          items:
+            $ref: '#/components/schemas/lint'
