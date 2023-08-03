@@ -12,7 +12,7 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
     OPENAI_KEY=<your API key>
     ```
 3. Install all required python packages
-4. Start the webserver with `flask run`
+4. Start the webserver with `flask run`. You can check if the server is running by sending a ***GET*** request to ***http://127.0.0.1:5000/health***
 5. Send a ***POST*** request to ***http://127.0.0.1:5000/linter*** containing a ***application/json*** body in the following format:
     ```
     {
@@ -28,8 +28,8 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 ```
 .
 ├── ABAPExamples/                               - contains example code in ABAP
-│   ├── zcl_abap_to_json.clas.abap              - used as a input
-│   └── zcl_fs_ref_perf_testing.clas.abap       - used as a input
+│   ├── zcl_abap_to_json.clas.abap              - used as an input
+│   └── zcl_fs_ref_perf_testing.clas.abap       - used as an input
 ├── JSON/                                       - contains JSON files
 │   ├── Layout.json                             - format for the GPT output
 │   ├── LayoutTemplate.json                     - example GPT output
