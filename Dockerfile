@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.8-slim-buster
 
 WORKDIR /python-docker
 
@@ -7,4 +7,4 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD ["python3", "-m", "flask", "run", "--host", "0.0.0.0", "-p", "5000"]
+CMD ["python3", "-u", "-m", "flask", "run", "--host", "0.0.0.0", "-p", "5000"]

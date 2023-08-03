@@ -35,13 +35,13 @@ paths:
                   example: print(Hello World!)
       responses: 
         '200':
-          description: Sends reviewed code
+          description: Sends code review
           content: 
             application/json: 
               schema: 
                 $ref: '#/components/schemas/response'
               examples:
-                example 1:
+                success example:
                   value:
                     code: print(Hello World!)
                     completion_tokens: 420
@@ -57,7 +57,7 @@ paths:
                       - lineFrom: 12
                         lineTo: 12
                         message: "There is a trailing comma in the list. It is not necessary and can be removed"
-                example 2:
+                failure example:
                   value:
                     success: False
 components:
