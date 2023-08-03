@@ -12,7 +12,7 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
     OPENAI_KEY=<your API key>
     ```
 3. Install all required python packages
-4. Start the webserver inside the ./Webserver/ folder with `flask run`
+4. Start the webserver with `flask run`
 5. Send a ***POST*** request to ***http://127.0.0.1:5000/linter*** containing a ***application/json*** body in the following format:
     ```
     {
@@ -20,7 +20,9 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
         "code": "your code"
     }
     ```
-
+6. Create a docker image with the command `docker build -t <name> .`
+7. Run a docker container with the command `docker run -p 5000:5000 --env-file ./API-Key.env <name>`
+8. The request address while running in a container is ***http://0.0.0.0:5000/linter***
 
 # Directory Tree
 ```
@@ -40,10 +42,11 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 │   ├── guessinggame.py                         - used as a few-shot prompt
 │   ├── heap.py                                 - used as an input
 │   └── main.py                                 - used as an input
-├── Webserver/                                  - 
-│   └── app.py                                  - contains the flask webserver
-├── .gitignore                                  - labels the files ignored by git
+├── .dockerignore                               - lists the files ignored by docker
+├── .gitignore                                  - lists the files ignored by git
+├── Dockerfile                                  - creates a docker image
 ├── README.md                                   - this README
+├── app.py                                      - contains the flask webserver
 ├── architecture.drawio.png                     - picture explaining the architecture 
 ├── dummielinter.py                             - just returns some message
 ├── jsonify.py                                  - script to convert code into the correct format for JSON
