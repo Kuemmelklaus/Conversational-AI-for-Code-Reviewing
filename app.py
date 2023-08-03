@@ -1,13 +1,11 @@
-import sys
-import os
 import time
 import json
 from apiflask import APIFlask, Schema
 from apiflask.fields import String
-sys.path.append(os.getcwd() + "/..")
 from linter import Linter
 
 app = APIFlask(__name__, title = "Linter", version = "1.0")
+app.debug = True
 
 @app.get("/")
 def root():

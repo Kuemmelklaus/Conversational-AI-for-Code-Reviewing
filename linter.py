@@ -52,21 +52,21 @@ class Linter:
         maxTok = 2000
 
         #load example layout
-        #with open("../JSON/Layout.json", "r") as l:
+        #with open("./JSON/Layout.json", "r") as l:
         #    layout = l.read()
 
         #load few-shot example
-        #with open("../PythonExamples/example.py") as c:
-        with open("../PythonExamples/guessinggame.py") as c:
+        #with open("./PythonExamples/example.py") as c:
+        with open("./PythonExamples/guessinggame.py") as c:
             example = c.read()
         
         #load few-shot answer
-        #with open("../JSON/exampleLint.json") as g:
-        with open("../JSON/guessinggameLint.json") as g:
+        #with open("./JSON/exampleLint.json") as g:
+        with open("./JSON/guessinggameLint.json") as g:
             lint = g.read()
 
         #load the openai api key from the file "API-Key.env"
-        load_dotenv("../API-Key.env")
+        load_dotenv("./API-Key.env")
         api_key = os.getenv("OPENAI_KEY")
         openai.api_key = api_key
 

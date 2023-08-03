@@ -1,0 +1,13 @@
+.git
+.gitignore
+API-Key.env
+README.md
+architecture.drawio.png
+__pycache__
+env
+prompts.txt
+test.py
+dummielinter.py
+ABAPExamples
+jsonify.py
+openapi.yml
