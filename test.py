@@ -16,7 +16,7 @@ with open("./Layout.json", "r") as l:
     layout = l.read()
 
 #load code examples
-with open("./PythonExanples/main.py") as c:
+with open("./PythonExamples/main.py") as c:
 #with open("./ABAPExamples/zcl_abap_to_json.clas.abap", "r") as c:
 #with open("./ABAPExamples/zcl_fs_ref_perf_testing.clas.abap", "r") as c:
     promtText = c.read()
