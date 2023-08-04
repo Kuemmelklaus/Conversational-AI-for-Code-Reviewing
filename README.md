@@ -66,7 +66,6 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 - [heap.py](https://www.geeksforgeeks.org/python-program-for-heap-sort/)
 - [ABAP examples/](https://github.com/SAP-samples/abap-oo-basics)
 
-
 ![](architecture.drawio.png)
 
 # Todo
@@ -74,11 +73,13 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 - [x] Python Code für's Prototyping verwenden
 - [x] Few-Shot Prompt
 - [x] JSON Validierung mit Retry
-
-- [ ] Code Review vs "Linter"
-- [ ] Dev Readme
-- [ ] OpenAPI Spec erzeugen
-- [ ] Dockerisieren des Webservers
+- [x] Code Review vs "Linter"
+- [x] Dev Readme
+- [ ] OpenAPI Spec erzeugen über apiflask
+- [x] Dockerisieren des Webservers
+- [ ] Standardoutput
+- [ ] dockerhub
+- [ ] web UI (react) + notizen
 
 ## Future
 
