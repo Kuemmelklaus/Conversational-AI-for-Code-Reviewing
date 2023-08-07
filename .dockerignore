@@ -11,3 +11,11 @@ dummielinter.py
 ABAPExamples
 jsonify.py
 openapi.yml
+JSON/client.json
+JSON/exampleLint.json
+JSON/Layout.json
+JSON/LayoutTemplate.json
+JSON/openAPI.json
+PythonExamples/example.py
+PythonExamples/heap.py
+PythonExamples/main.py

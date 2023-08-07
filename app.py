@@ -4,7 +4,7 @@ from apiflask import APIFlask, Schema
 from apiflask.fields import String
 from linter import Linter
 
-app = APIFlask(__name__, title = "Linter", version = "1.0")
+app = APIFlask(__name__, title = "Linter", version = "1.0", docs_ui = "swagger-ui")
 app.debug = True
 
 @app.get("/")
