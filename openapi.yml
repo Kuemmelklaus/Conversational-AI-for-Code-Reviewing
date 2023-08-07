@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: ChatGPT-ABAP-Linter
   version: 1.0.0
-  description: This API is trying to give helpful coding advices in Python and hopefully one day in ABAP as well. 
+  description: This API is trying to give helpful coding advices in Python and hopefully one day in ABAP as well.
 paths:
   /health:
     get:
@@ -32,7 +32,7 @@ paths:
                   example: Python
                 code:
                   type: string
-                  example: print(Hello World!)
+                  example: print("Hello World!")
       responses: 
         '200':
           description: Sends code review
@@ -43,7 +43,7 @@ paths:
               examples:
                 success example:
                   value:
-                    code: print(Hello World!)
+                    code: print("Hello World!")
                     completion_tokens: 420
                     date: 2023-08-01T11:30:22.514049
                     model: gpt-3.5-turbo-16k
@@ -56,7 +56,7 @@ paths:
                         message: The 'except' block in the 'submit' function catches all exceptions without specifying which exceptions to catch. It is generally recommended to catch specific exceptions rather than catching all exceptions, as it can make it harder to debug and handle specific errors.
                       - lineFrom: 12
                         lineTo: 12
-                        message: "There is a trailing comma in the list. It is not necessary and can be removed"
+                        message: "There is a trailing comma in the list. It is not necessary and can be removed."
                 failure example:
                   value:
                     success: False
