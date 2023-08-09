@@ -1,0 +1,1 @@
+- nodejs only works when installed according to https://learn.microsoft.com/en-us/windows/dev-environment/javascript/react-on-wsl. When installing via apt it only throws errors.
