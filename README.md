@@ -11,18 +11,20 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
     ```
     OPENAI_KEY=<your API key>
     ```
-3. Install all required python packages
-4. Start the webserver with `flask run`. You can check if the server is running by sending a ***GET*** request to ***http://127.0.0.1:5000/health***
-5. Send a ***POST*** request to ***http://127.0.0.1:5000/linter*** containing a ***application/json*** body in the following format:
+3. create a python virtual environment called ***env***
+4. Install all required python packages inside ***env***
+5. Start the webserver with `flask run`. You can check if the server is running by sending a ***GET*** request to ***http://127.0.0.1:5000/health***
+6. Send a ***POST*** request to ***http://127.0.0.1:5000/linter*** containing a ***application/json*** body in the following format:
     ```
     {
         "programmingLanguage": "your Programming language",
         "code": "your code"
     }
     ```
-6. Create a docker image with the command `docker build -t <name> .`
-7. Run a docker container with the command `docker run -p 5000:5000 --env-file ./API-Key.env <name>`
-8. The request address while running in a container is ***http://0.0.0.0:5000/linter***
+7. Create a docker image with the command `docker build -t <name> .`
+8. Run a docker container with the command `docker run -p 5000:5000 --env-file ./API-Key.env <name>`
+9. The request address while running in a container is ***http://0.0.0.0:5000/linter***
+10. Inside the ***website*** directory run `npm install` and then `npm start` to run the website
 
 # Directory Tree
 ```
@@ -42,6 +44,27 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 │   ├── guessinggame.py                         - used as a few-shot prompt
 │   ├── heap.py                                 - used as an input
 │   └── main.py                                 - used as an input
+├── website/                                    - contains the react webserver
+│   ├── public/                                 - default react components
+│   │   ├── favicon.ico                         - 
+│   │   ├── index.html                          - 
+│   │   ├── logo192.png                         - 
+│   │   ├── logo512.png                         - 
+│   │   ├── manifest.json                       - 
+│   │   └── robots.txt                          - 
+│   ├── src/                                    - 
+│   │   ├── App.css                             - 
+│   │   ├── App.js                              - 
+│   │   ├── App.test.js                         - 
+│   │   ├── index.css                           - 
+│   │   ├── index.js                            - 
+│   │   ├── logo.svg                            - 
+│   │   ├── reportWebVitals.js                  - 
+│   │   └── setupTests.js                       - 
+│   ├── .gitignore                              - 
+│   ├── README.md                               - 
+│   ├── package-lock.json                       -
+│   └── package.json                            - 
 ├── .dockerignore                               - lists the files ignored by docker
 ├── .gitignore                                  - lists the files ignored by git
 ├── Dockerfile                                  - creates a docker image
