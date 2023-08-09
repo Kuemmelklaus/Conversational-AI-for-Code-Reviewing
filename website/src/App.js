@@ -17,8 +17,15 @@ function App() {
         >
           Learn React
         </a>
+        <Button/>
       </header>
     </div>
+  );
+}
+
+function Button() {
+  return(
+    <button>Hello!!</button>
   );
 }
 
