@@ -53,16 +53,16 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 │   │   ├── manifest.json                       - 
 │   │   └── robots.txt                          - 
 │   ├── src/                                    - 
-│   │   ├── App.css                             - 
-│   │   ├── App.js                              - 
+│   │   ├── App.css                             - website style
+│   │   ├── App.js                              - react server
 │   │   ├── App.test.js                         - 
 │   │   ├── index.css                           - 
 │   │   ├── index.js                            - 
 │   │   ├── logo.svg                            - 
 │   │   ├── reportWebVitals.js                  - 
 │   │   └── setupTests.js                       - 
-│   ├── .gitignore                              - 
-│   ├── README.md                               - 
+│   ├── .gitignore                              - lists the files ignored by git
+│   ├── README.md                               - default react readme
 │   ├── package-lock.json                       -
 │   └── package.json                            - 
 ├── .dockerignore                               - lists the files ignored by docker
