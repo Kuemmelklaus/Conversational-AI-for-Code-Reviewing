@@ -3,8 +3,10 @@ import json
 from apiflask import APIFlask, Schema
 from apiflask.fields import String, Integer, Boolean, List, Field, Nested, Raw
 from linter import Linter
+from flask_cors import CORS
 
 app = APIFlask(__name__, title = "Linter", version = "1.0", docs_ui = "swagger-ui", spec_path = "/openapi.yaml")
+cors = CORS(app)
 app.debug = True
 
 app.config["SPEC_FORMAT"] = "yaml"

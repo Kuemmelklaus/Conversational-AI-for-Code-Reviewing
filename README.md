@@ -81,7 +81,7 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 └── test.py                                     - script that directly sends requests to the openai API
 ```
 
-# Sources
+# Resources
 
 - [guessinggame.py](https://codereview.stackexchange.com/questions/286118/guessing-game-in-python-which-uses-a-while-loop-with-3-guesses,)
 - [example.py](https://www.codingem.com/python-linter/)
