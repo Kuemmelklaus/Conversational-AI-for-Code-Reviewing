@@ -1,5 +1,5 @@
-import './App.css';
-import React, { useState, useEffect } from 'react';
+import "./App.css";
+import React, { useState, useEffect } from "react";
 
 function App() {
 
@@ -26,8 +26,12 @@ function App() {
           <div>Error: {errorMessage}</div>
         }
       </div>
-      <div className = "App-body">
-        <input type = "text" name = "code" size = "40"/>
+      <div className="App-body">
+        <p>
+          <input type="text" name="code" size="40" />
+          <br />
+          
+        </p>
       </div>
     </div>
   );

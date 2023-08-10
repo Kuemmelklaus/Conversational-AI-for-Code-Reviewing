@@ -2,3 +2,4 @@
 - no-corse mode for fetch method was hard to figure out
 - the response body is getting send (flask: "GET /health HTTP/1.1" 200) but nothing inside the response body in the browser
 - no-corse deletes json response body. solution add cors in flask
+- default <input /> is to bare bones
