@@ -64,7 +64,7 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 │   ├── .gitignore                              - lists the files ignored by git
 │   ├── README.md                               - default react readme
 │   ├── package-lock.json                       - npm dependencies
-│   └── package.json                            - 
+│   └── package.json                            - website metadata
 ├── .dockerignore                               - lists the files ignored by docker
 ├── .gitignore                                  - lists the files ignored by git
 ├── Dockerfile                                  - creates a docker image
