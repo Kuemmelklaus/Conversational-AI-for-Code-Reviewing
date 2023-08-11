@@ -2,17 +2,41 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 
+const CodeEditor = () => {
+  const [code, setCode] = useState(null);
+  const [language, setLanguage] = useState("python");
+  const [theme, setTheme] = useState("vs-dark");
+
+  const handleEditorChange = () => {
+
+  };
+
+  return(
+
+    <Editor
+      height={"70vh"}
+      width={`100%`}
+      value={code}
+      language={language}
+      theme={theme}
+      onChange={handleEditorChange}
+    />
+  );
+};
+
 function App() {
   const [healthStatus, setHealthStatus] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [code, setCode] = useState(null);
   const [theme, setTheme] = useState("cobalt");
+  const [language, setLanguage] = useState("python");
 
+  /*
   const onChange = (action, data) => {
     switch (action) {
       case "code": {
         setCode(data);
-        console.log(code)
+        console.log(code);
         break;
       }
       default: {
@@ -37,12 +61,13 @@ function App() {
           language={language || "python"}
           value={value}
           theme={theme}
-          defaultValue="# some comment"
+          defaultValue={"" || "# some comment"}
           onChange={handleEditorChange}
         />
       </div>
     );
   };
+  */
 
   useEffect(() => {
     const getHealth = async () => {
@@ -64,11 +89,12 @@ function App() {
         {errorMessage != null && <div>Error: {errorMessage}</div>}
       </div>
       <div className="App-body">
-        <div>
-          <CodeEditorWindow
+        <div className="code-editor">
+          <CodeEditor
             code={code}
-            onChange={onChange}
+            onChange={""}
             theme={theme.value}
+            language={language}
           />
           <p>
             <br />
@@ -81,17 +107,19 @@ function App() {
 }
 
 function ReviewButton() {
-  return <button onClick={sendPostRequest()}>Send review request</button>;
+  return <button onClick={() => sendPostRequest()}>Send review request</button>;
 }
 
 function sendPostRequest() {
   const fetchRequest = async () => {
-    const response = await fetch(
-      "http://127.0.0.1:5000/linter", {
-        method: "POST"
-      }
-    );
-  }
+    const response = await fetch("http://127.0.0.1:5000/linter", {
+      method: "POST",
+    });
+  };
+  console.log("AAA");
 }
+
+
+
 
 export default App;
