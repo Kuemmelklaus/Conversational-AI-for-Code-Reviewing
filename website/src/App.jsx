@@ -7,8 +7,9 @@ const CodeEditor = () => {
   const [language, setLanguage] = useState("python");
   const [theme, setTheme] = useState("vs-dark");
 
-  const handleEditorChange = () => {
-
+  const handleEditorChange = (data) => {
+    setCode(data);
+    console.log(data, code);
   };
 
   return(
