@@ -36,9 +36,6 @@ class Linter:
 
     def get_lint(self):
         return self.lint
-    
-    #def escape(self, string):
-        
 
     #Constuct
     def __init__(self, programmingLanguage, code):

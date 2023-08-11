@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useEffect, onChange } from "react";
+import React, { useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 
 function App() {
@@ -7,6 +7,19 @@ function App() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [code, setCode] = useState(null);
   const [theme, setTheme] = useState("cobalt");
+
+  const onChange = (action, data) => {
+    switch (action) {
+      case "code": {
+        setCode(data);
+        console.log(code)
+        break;
+      }
+      default: {
+        console.warn("case not handled!", action, data);
+      }
+    }
+  };
 
   const CodeEditorWindow = ({ onChange, language, code, theme }) => {
     const [value, setValue] = useState(code || "");
@@ -24,23 +37,11 @@ function App() {
           language={language || "python"}
           value={value}
           theme={theme}
-          defaultValue="// some comment"
+          defaultValue="# some comment"
           onChange={handleEditorChange}
         />
       </div>
     );
-  };
-
-  const onChange = (action, data) => {
-    switch (action) {
-      case "code": {
-        setCode(data);
-        break;
-      }
-      default: {
-        console.warn("case not handled!", action, data);
-      }
-    }
   };
 
   useEffect(() => {
@@ -64,7 +65,7 @@ function App() {
       </div>
       <div className="App-body">
         <div>
-          <CodeEditorWindow 
+          <CodeEditorWindow
             code={code}
             onChange={onChange}
             theme={theme.value}
@@ -80,7 +81,17 @@ function App() {
 }
 
 function ReviewButton() {
-  return <button>Send review request</button>;
+  return <button onClick={sendPostRequest()}>Send review request</button>;
+}
+
+function sendPostRequest() {
+  const fetchRequest = async () => {
+    const response = await fetch(
+      "http://127.0.0.1:5000/linter", {
+        method: "POST"
+      }
+    );
+  }
 }
 
 export default App;

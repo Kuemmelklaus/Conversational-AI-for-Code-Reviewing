@@ -35,7 +35,7 @@ class Request(Schema):
         metadata = {"title": "Code to be reviewed", "example": 'print("Hello World!")'}
     )
 
-class Lint1(Schema):
+"""class Lint1(Schema):
     lineFrom = Integer(
         metadata = {"title": "Starting line", "example": 1}
     )
@@ -57,7 +57,7 @@ class Lint2(Schema):
         metadata = {"title": "Code review", "example": "There is a trailing comma in the list. It is not necessary and can be removed."}
     )
 
-    """{
+    {
         lineFrom = Integer(
             metadata = {}
         )
@@ -143,7 +143,6 @@ def lint(json_data):
             return json.loads('{"success": false}')
         i += 1
     return linter.get_lint()
-
 
 """@app.output({
     "code": String(example = 'print("Hello World!")'),
