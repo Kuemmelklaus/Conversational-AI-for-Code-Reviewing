@@ -10,14 +10,26 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-  min-height: 20vh;
+  min-height: 15vh;
 }
 
 .App-body {
   background-color: #282c34;
   display: flex;
-  min-height: 80vh;
+  min-height: 85vh;
   align-items: center;
   justify-content: center;
   color: white;
+  min-width: 100%;
+  width: 100%;
+}
+
+.input-window {
+  min-width: 700px;
+  width: 100%;
+  clear: left;
+}
+
+.button {
+  clear: left;
 }

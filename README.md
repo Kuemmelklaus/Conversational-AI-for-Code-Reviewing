@@ -61,13 +61,16 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 │   │   ├── logo.svg                            - default react component
 │   │   ├── reportWebVitals.js                  - default react component
 │   │   └── setupTests.js                       - default react component
+│   ├── .dockerignore                           - lists the files ignored by docker
 │   ├── .gitignore                              - lists the files ignored by git
+│   ├── Dockerfile                              - creates a docker image for the react server
 │   ├── README.md                               - default react readme
+│   ├── notes.txt                               - notes about developing with react
 │   ├── package-lock.json                       - npm dependencies
 │   └── package.json                            - website metadata
 ├── .dockerignore                               - lists the files ignored by docker
 ├── .gitignore                                  - lists the files ignored by git
-├── Dockerfile                                  - creates a docker image
+├── Dockerfile                                  - creates a docker image for the flask server
 ├── README.md                                   - this README
 ├── app.py                                      - contains the flask webserver
 ├── architecture.drawio.png                     - picture explaining the architecture 
