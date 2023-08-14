@@ -2,18 +2,19 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 
-const CodeEditor = () => {
+const CodeEditor = ({ lang }) => {
   const [code, setCode] = useState(null);
-  const [language, setLanguage] = useState("python");
+  const [language, setLanguage] = useState(null);
   const [theme, setTheme] = useState("vs-dark");
+
+  setLanguage(lang);
 
   const handleEditorChange = (data) => {
     setCode(data);
     console.log(data, code);
   };
 
-  return(
-
+  return (
     <Editor
       height={"70vh"}
       width={`100%`}
@@ -29,7 +30,6 @@ function App() {
   const [healthStatus, setHealthStatus] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [code, setCode] = useState(null);
-  const [theme, setTheme] = useState("cobalt");
   const [language, setLanguage] = useState("python");
 
   /*
@@ -91,12 +91,7 @@ function App() {
       </div>
       <div className="App-body">
         <div className="code-editor">
-          <CodeEditor
-            code={code}
-            onChange={""}
-            theme={theme.value}
-            language={language}
-          />
+          <CodeEditor lang={language} />
           <p>
             <br />
           </p>
@@ -108,19 +103,31 @@ function App() {
 }
 
 function ReviewButton() {
-  return <button onClick={() => sendPostRequest()}>Send review request</button>;
+  return (
+    <button onClick={() => sendPostRequest(Editor.code, Editor.language)}>
+      Send review request
+    </button>
+  );
 }
 
-function sendPostRequest() {
+function sendPostRequest(code, language) {
+  var jsonData = {
+    programmingLanguage: language,
+    code: code,
+  };
+  console.log(jsonData);
   const fetchRequest = async () => {
     const response = await fetch("http://127.0.0.1:5000/linter", {
       method: "POST",
+      headers: new Headers({ "content-type": "application/json" }),
+      body: JSON.stringify(jsonData),
     });
+    const data = await response.json();
+    console.log(data);
   };
+
   console.log("AAA");
+  return fetchRequest();
 }
-
-
-
 
 export default App;

@@ -4,3 +4,4 @@
 - no-corse deletes json response body. solution add cors in flask
 - default <input /> is to bare bones
 - getting the width in the DOM right was difficult
+- how to get react states from another component
