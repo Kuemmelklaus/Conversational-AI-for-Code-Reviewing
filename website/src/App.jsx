@@ -13,15 +13,13 @@ const CodeEditor = ({ lang }) => {
 
   const handleEditorChange = (data) => {
     setCode(data);
-    console.log(data, code);
   };
 
   function ReviewButton() {
     function sendPostRequest(code, language) {
-      console.log(code, language);
       var jsonData = {
         programmingLanguage: language,
-        code: code,
+        code: escapeCode(code),
       };
       console.log(jsonData);
 
@@ -35,13 +33,20 @@ const CodeEditor = ({ lang }) => {
         console.log(data);
       };
 
-      return fetchRequest();
+      return fetchRequest().data;
     }
     return (
       <button onClick={() => sendPostRequest(code, language)}>
         Send review request
       </button>
     );
+  }
+
+  function escapeCode(code) {
+    var newCode = code.replace("\\'", "\\\\'");
+    newCode = newCode.replace('"', '\\"');
+    newCode = newCode.replace("\n", "\\n");
+    return(newCode);
   }
 
   return (
