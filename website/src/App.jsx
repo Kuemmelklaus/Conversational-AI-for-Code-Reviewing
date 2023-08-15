@@ -39,7 +39,10 @@ const CodeEditor = ({ lang }) => {
         const data = await response.json();
         setLint(data);
       };
-      fetchRequest();
+      
+      fetchRequest().catch((error) => {
+        console.error("There was an error:", error);
+      });
     }
     return (
       <button onClick={() => sendPostRequest(code, language)}>
@@ -72,13 +75,13 @@ function App() {
   const [language, setLanguage] = useState("python");
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const catchError = () => {
       getHealth().catch((error) => {
         setHealthStatus("fail");
         setErrorMessage(error.toString());
         console.error("There was an error!", error);
       });
-    }, 10000);
+    };
 
     const getHealth = async () => {
       const response = await fetch("http://127.0.0.1:5000/health");
@@ -87,12 +90,11 @@ function App() {
       setErrorMessage(null);
     };
 
-    getHealth().catch((error) => {
-      setHealthStatus("fail");
-      setErrorMessage(error.toString());
-      console.error("There was an error!", error);
-    });
+    const interval = setInterval(() => {
+      catchError();
+    }, 10000);
 
+    catchError();
     return () => clearInterval(interval);
   }, []);
 
