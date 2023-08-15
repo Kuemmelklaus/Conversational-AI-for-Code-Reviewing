@@ -1,5 +1,7 @@
 FROM python:3.8-slim-bullseye
 
+EXPOSE 5000
+
 WORKDIR /python-docker
 
 COPY requirements.txt ./

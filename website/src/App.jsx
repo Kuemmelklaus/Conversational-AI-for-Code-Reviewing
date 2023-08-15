@@ -46,7 +46,7 @@ const CodeEditor = ({ lang }) => {
     var newCode = code.replace("\\'", "\\\\'");
     newCode = newCode.replace('"', '\\"');
     newCode = newCode.replace("\n", "\\n");
-    return(newCode);
+    return newCode;
   }
 
   return (

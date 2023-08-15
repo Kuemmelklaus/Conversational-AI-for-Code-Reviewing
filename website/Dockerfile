@@ -1,5 +1,7 @@
 FROM node:20-slim
 
+EXPOSE 3000
+
 WORKDIR /website
 
 COPY . .
