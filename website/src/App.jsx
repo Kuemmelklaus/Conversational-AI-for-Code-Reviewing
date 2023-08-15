@@ -28,11 +28,14 @@ const CodeEditor = ({ lang }) => {
       };
 
       const fetchRequest = async () => {
-        const response = await fetch("http://127.0.0.1:5000/linter?dummy=true", {
-          method: "POST",
-          headers: new Headers({ "content-type": "application/json" }),
-          body: JSON.stringify(jsonData),
-        });
+        const response = await fetch(
+          "http://127.0.0.1:5000/linter?dummy=true",
+          {
+            method: "POST",
+            headers: new Headers({ "content-type": "application/json" }),
+            body: JSON.stringify(jsonData),
+          }
+        );
         const data = await response.json();
         setLint(data);
       };
@@ -69,16 +72,28 @@ function App() {
   const [language, setLanguage] = useState("python");
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      getHealth().catch((error) => {
+        setHealthStatus("fail");
+        setErrorMessage(error.toString());
+        console.error("There was an error!", error);
+      });
+    }, 10000);
+
     const getHealth = async () => {
       const response = await fetch("http://127.0.0.1:5000/health");
       const data = await response.json();
       setHealthStatus(data.status);
+      setErrorMessage(null);
     };
 
     getHealth().catch((error) => {
+      setHealthStatus("fail");
       setErrorMessage(error.toString());
       console.error("There was an error!", error);
     });
+
+    return () => clearInterval(interval);
   }, []);
 
   return (

@@ -10,13 +10,13 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-  min-height: 15vh;
+  min-height: 10vh;
 }
 
 .App-body {
   background-color: #282c34;
   display: flex;
-  min-height: 85vh;
+  min-height: 90vh;
   align-items: center;
   justify-content: center;
   color: white;
