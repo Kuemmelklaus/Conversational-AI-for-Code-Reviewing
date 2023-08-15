@@ -19,12 +19,12 @@ const CodeEditor = ({ lang }) => {
     function sendPostRequest(code, language) {
       var jsonData = {
         programmingLanguage: language,
-        code: escapeCode(code),
+        code: JSON.stringify(code),
       };
       console.log(jsonData);
 
       const fetchRequest = async () => {
-        const response = await fetch("http://127.0.0.1:5000/linter", {
+        const response = await fetch("http://127.0.0.1:5000/linter?dummy=true", {
           method: "POST",
           headers: new Headers({ "content-type": "application/json" }),
           body: JSON.stringify(jsonData),
@@ -40,13 +40,6 @@ const CodeEditor = ({ lang }) => {
         Send review request
       </button>
     );
-  }
-
-  function escapeCode(code) {
-    var newCode = code.replace("\\'", "\\\\'");
-    newCode = newCode.replace('"', '\\"');
-    newCode = newCode.replace("\n", "\\n");
-    return newCode;
   }
 
   return (

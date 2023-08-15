@@ -40,7 +40,7 @@ class Linter:
     #Constuct
     def __init__(self, programmingLanguage, code):
 
-        self.done = False
+        self.success = False
 
         #Select the GPT model ("gpt-3.5-turbo", "gpt-4", "gpt-3.5-turbo-16k" ...)
         m = "gpt-3.5-turbo-16k"
@@ -85,7 +85,7 @@ class Linter:
                 print("\n========================================\n")
                 self.lint = json.loads(choices1.message.content)
                 self.lint = self.add_metadata(self.lint, m, response1, code, programmingLanguage, True)
-                self.done = True
+                self.success = True
                 print("Successful after one try.")
                 #print(choices1.message.content)
             except json.decoder.JSONDecodeError:
@@ -99,7 +99,7 @@ class Linter:
                         print("\n========================================\n")
                         self.lint = json.loads(choices2.message.content)
                         self.lint = self.add_metadata(self.lint, m, response2, code, programmingLanguage, True)
-                        self.done = True
+                        self.success = True
                         print("Successful after two tries.")
                         #print(choices2.message.content)
                     except json.decoder.JSONDecodeError:

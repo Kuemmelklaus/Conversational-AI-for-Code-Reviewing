@@ -101,11 +101,14 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 - [x] JSON Validierung mit Retry
 - [x] Code Review vs "Linter"
 - [x] Dev Readme
-- [ ] OpenAPI Spec erzeugen über apiflask
+- [x] OpenAPI Spec erzeugen über apiflask
 - [x] Dockerisieren des Webservers
 - [ ] Standardoutput
-- [ ] dockerhub
+- [x] dockerhub
 - [ ] web UI (react) + notizen
+- [ ] Dummy Linter via Querparameter: /linter?dummy=true
+- [ ] Ausgabe Dummylinter an erwartete JSON Struktur anpassen
+- [ ] Live Reload /health in der ReactUI
 
 ## Future
 
