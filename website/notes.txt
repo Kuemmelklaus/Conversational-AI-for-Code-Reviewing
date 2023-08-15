@@ -6,3 +6,4 @@
 - getting the width in the DOM right was difficult
 - how to get react states from another component
 - rearranging some declarations causes an error: Too many re-renders. React limits the number of renders to prevent an infinite loop.
+- resizing the window causes error: ResizeObserver loop limit exceeded
