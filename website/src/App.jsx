@@ -6,10 +6,15 @@ const CodeEditor = ({ lang }) => {
   const [code, setCode] = useState(null);
   const [language, setLanguage] = useState(null);
   const [theme, setTheme] = useState("vs-dark");
+  const [lint, setLint] = useState(null);
 
   useEffect(() => {
     setLanguage(lang);
   }, []);
+
+  useEffect(() => {
+    console.log(lint);
+  }, [lint]);
 
   const handleEditorChange = (data) => {
     setCode(data);
@@ -21,7 +26,6 @@ const CodeEditor = ({ lang }) => {
         programmingLanguage: language,
         code: JSON.stringify(code),
       };
-      console.log(jsonData);
 
       const fetchRequest = async () => {
         const response = await fetch("http://127.0.0.1:5000/linter?dummy=true", {
@@ -30,10 +34,9 @@ const CodeEditor = ({ lang }) => {
           body: JSON.stringify(jsonData),
         });
         const data = await response.json();
-        console.log(data);
+        setLint(data);
       };
-
-      return fetchRequest().data;
+      fetchRequest();
     }
     return (
       <button onClick={() => sendPostRequest(code, language)}>
