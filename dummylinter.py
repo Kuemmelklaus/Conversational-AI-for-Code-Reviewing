@@ -9,12 +9,12 @@ class Dlinter:
         self.dummy["lint"] = [{
             "lineFrom": 1,
             "lineTo": 1,
-            "message": "foo"
+            "message": "Foo"
         },
         {
             "lineFrom": 2,
             "lineTo": 4,
-            "message": "bar"
+            "message": "Bar"
         }
         ]
 

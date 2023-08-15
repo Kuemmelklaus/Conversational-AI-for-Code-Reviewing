@@ -21,10 +21,10 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
         "code": "your code"
     }
     ```
-7. Create a docker image with the command `docker build -t <name> .`
+7. Create a docker image of the flask server with the command `docker build -t <name> .`
 8. Run a docker container with the command `docker run -p 5000:5000 --env-file ./API-Key.env <name>`
-9. The request address while running in a container is ***http://0.0.0.0:5000/linter***
-10. Inside the ***website*** directory run `npm install` and then `npm start` to run the website
+9. Inside the ***website*** directory run `npm install` and then `npm start` to run the website that runs on ***http://127.0.0.1:3000***
+10. Create a docker image of the react server with the command `docker build -t <name> ./website` and run it with `docker run -p 3000:3000 <name>`
 
 # Directory Tree
 ```
