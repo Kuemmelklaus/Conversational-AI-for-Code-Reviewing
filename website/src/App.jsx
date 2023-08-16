@@ -1,24 +1,40 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Editor from "@monaco-editor/react";
+import Select from "react-select";
 
-const CodeEditor = ({ lang }) => {
+const CodeEditor = ({ lang, onLangChange }) => {
   const [code, setCode] = useState(null);
   const [language, setLanguage] = useState(null);
   const [theme, setTheme] = useState("vs-dark");
   const [lint, setLint] = useState(null);
 
+  //initialize programming language
   useEffect(() => {
     setLanguage(lang);
   }, []);
 
+  const langOptions = [
+    { value: "python", label: "Python" },
+    { value: "abap", label: "ABAP" },
+  ];
+
   useEffect(() => {
-    console.log(lint);
+    console.log("response:", lint);
   }, [lint]);
 
+  //save code in react state
   const handleEditorChange = (data) => {
     setCode(data);
   };
+
+  //change programming language
+  const handleLangChange = useCallback(
+    (event) => {
+      setLanguage(event.value);
+    },
+    [onLangChange]
+  );
 
   function ReviewButton() {
     function sendPostRequest(code, language) {
@@ -27,6 +43,7 @@ const CodeEditor = ({ lang }) => {
         code: JSON.stringify(code),
       };
 
+      //send http request
       const fetchRequest = async () => {
         const response = await fetch(
           "http://127.0.0.1:5000/linter?dummy=true",
@@ -39,7 +56,7 @@ const CodeEditor = ({ lang }) => {
         const data = await response.json();
         setLint(data);
       };
-      
+
       fetchRequest().catch((error) => {
         console.error("There was an error:", error);
       });
@@ -53,6 +70,13 @@ const CodeEditor = ({ lang }) => {
 
   return (
     <div>
+      <Select
+        onChange={(event) => {
+          onLangChange(event);
+          handleLangChange(event);
+        }}
+        options={langOptions}
+      />
       <Editor
         height={"70vh"}
         width={`100%`}
@@ -74,6 +98,7 @@ function App() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [language, setLanguage] = useState("python");
 
+  //periodically check health status
   useEffect(() => {
     const catchError = () => {
       getHealth().catch((error) => {
@@ -92,11 +117,15 @@ function App() {
 
     const interval = setInterval(() => {
       catchError();
-    }, 10000);
+    }, 30000);
 
     catchError();
     return () => clearInterval(interval);
   }, []);
+
+  const langChange = (event) => {
+    setLanguage(event.value);
+  };
 
   return (
     <div className="App">
@@ -106,7 +135,7 @@ function App() {
       </div>
       <div className="App-body">
         <div className="code-editor">
-          <CodeEditor lang={language} />
+          <CodeEditor lang={language} onLangChange={langChange} />
         </div>
       </div>
     </div>
