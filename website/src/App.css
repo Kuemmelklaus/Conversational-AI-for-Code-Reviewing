@@ -33,3 +33,7 @@
 .button {
   clear: left;
 }
+
+.lang-select {
+  max-width: 200px;
+}

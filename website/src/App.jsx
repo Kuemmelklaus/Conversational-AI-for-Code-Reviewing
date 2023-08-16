@@ -8,16 +8,16 @@ const CodeEditor = ({ lang, onLangChange }) => {
   const [language, setLanguage] = useState(null);
   const [theme, setTheme] = useState("vs-dark");
   const [lint, setLint] = useState(null);
+  const [working, setWorking] =useState(false);
+  const langOptions = [
+    { value: "python", label: "Python" },
+    { value: "abap", label: "ABAP" },
+  ];
 
   //initialize programming language
   useEffect(() => {
     setLanguage(lang);
   }, []);
-
-  const langOptions = [
-    { value: "python", label: "Python" },
-    { value: "abap", label: "ABAP" },
-  ];
 
   useEffect(() => {
     console.log("response:", lint);
@@ -70,13 +70,16 @@ const CodeEditor = ({ lang, onLangChange }) => {
 
   return (
     <div>
+      <div className="lang-select">
       <Select
         onChange={(event) => {
           onLangChange(event);
           handleLangChange(event);
         }}
         options={langOptions}
+        defaultValue={langOptions[0]}
       />
+      </div>
       <Editor
         height={"70vh"}
         width={`100%`}

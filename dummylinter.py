@@ -1,4 +1,5 @@
 import json
+import time
 
 class Dlinter:
 
@@ -17,6 +18,7 @@ class Dlinter:
             "message": "Bar"
         }
         ]
+        time.sleep(2)
 
     def get_lint(self):
         return self.dummy
