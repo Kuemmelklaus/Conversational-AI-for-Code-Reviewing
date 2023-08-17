@@ -14,7 +14,9 @@ function App() {
     if (localValue === null) return null;
     return JSON.parse(localValue);
   });
+  const [reviewedCode, setReviewedCode] = useState(null);
   const [lint, setLint] = useState(null);
+  const [reviewState, setReviewState] = useState("init");
 
   useEffect(() => {
     if (lint != null) {
@@ -22,9 +24,14 @@ function App() {
     }
   }, [lint]);
 
+  useEffect(() => {
+    console.log(reviewState);
+  }, [reviewState]);
+
   //store code locally
   useEffect(() => {
     localStorage.setItem("CODE", JSON.stringify(code));
+    setReviewState("init");
   }, [code]);
 
   //periodically check health status
@@ -60,8 +67,13 @@ function App() {
     setCode(data);
   }
 
+  function handleReviewState(state) {
+    setReviewState(state);
+  }
+
   function handleResponse(data) {
     setLint(data);
+    setReviewedCode(code);
   }
 
   return (
@@ -85,12 +97,19 @@ function App() {
         onChange={handleEditorChange}
       />
       <div className="result">
-        {lint != null && (
-          <Result language={language} lint={lint.lint[0]} code={code} />
+        {lint != null && reviewState === "success" && (
+          <Result language={language} lint={lint.lint[0]} code={reviewedCode} />
         )}
       </div>
       <br />
-      <SubmitButton language={language} code={code} onClick={handleResponse} />
+      {reviewState === "init" && (
+        <SubmitButton
+          language={language}
+          code={code}
+          onClick={handleResponse}
+          handleReviewState={handleReviewState}
+        />
+      )}
     </div>
   );
 }

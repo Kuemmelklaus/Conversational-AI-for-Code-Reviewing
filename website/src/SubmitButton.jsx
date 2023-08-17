@@ -1,5 +1,7 @@
-function SubmitButton({ language, code, onClick }) {
+function SubmitButton({ language, code, onClick, handleReviewState }) {
+  
   function sendPostRequest(language, code) {
+    handleReviewState("generating");
     var jsonData = {
       programmingLanguage: language,
       code: JSON.stringify(code),
@@ -14,6 +16,7 @@ function SubmitButton({ language, code, onClick }) {
       });
       const data = await response.json();
       onClick(data);
+      handleReviewState("success");
     };
 
     fetchRequest().catch((error) => {
@@ -22,10 +25,7 @@ function SubmitButton({ language, code, onClick }) {
   }
 
   return (
-    <button
-      className="button"
-      onClick={() => sendPostRequest(language, code)}
-    >
+    <button className="button" onClick={() => sendPostRequest(language, code)}>
       Send review request
     </button>
   );
