@@ -17,7 +17,7 @@ function LangSelect({ onChange }) {
       neutral0: "#202020",
       neutral80: "white",
       neutral20: "#858585",
-      primary50: "#71a8cc",
+      primary50: "#6088a3",
     },
   });
 

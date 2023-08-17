@@ -4,18 +4,11 @@
   display: flex;
   min-height: 100vh;
   align-items: center;
-  justify-content: center;
   color: white;
   min-width: 100%;
   width: 100%;
   flex-direction: column;
-  font-size: calc(10px + 2vmin);
-}
-
-.code-editor {
-  min-width: 200px;
-  width: 100%;
-  clear: left;
+  font-size: calc(6px + 2vmin);
 }
 
 .button {
@@ -51,3 +44,7 @@
   opacity: 0.75;
 }
 
+.result {
+  font-family: "Fira Code", monospace;
+  text-align: left;
+}

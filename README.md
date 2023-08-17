@@ -54,13 +54,13 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 │   │   └── robots.txt                          - 
 │   ├── src/                                    - 
 │   │   ├── App.css                             - website style
-│   │   ├── App.jsx                             - react server
-│   │   ├── App.test.js                         - default react component
+│   │   ├── App.jsx                             - react server root component
+│   │   ├── InputEditor.jsx                     - editor component
+│   │   ├── LangSelect.jsx                      - select component
+│   │   ├── SubmitButton                        - button component
 │   │   ├── index.css                           - default react component
 │   │   ├── index.js                            - default react component
-│   │   ├── logo.svg                            - default react component
-│   │   ├── reportWebVitals.js                  - default react component
-│   │   └── setupTests.js                       - default react component
+│   │   └── reportWebVitals.js                  - default react component
 │   ├── .dockerignore                           - lists the files ignored by docker
 │   ├── .gitignore                              - lists the files ignored by git
 │   ├── Dockerfile                              - creates a docker image for the react server

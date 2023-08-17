@@ -4,8 +4,8 @@ function InputEditor({ language, code, onChange }) {
 
   return (
     <Editor
-      height={"60vh"}
-      width={`100%`}
+      height={"50vh"}
+      width={"100%"}
       value={code}
       language={language}
       theme={"vs-dark"}

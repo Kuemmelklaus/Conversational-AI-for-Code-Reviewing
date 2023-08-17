@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import LangSelect from "./LangSelect";
 import InputEditor from "./InputEditor";
 import SubmitButton from "./SubmitButton";
+import Result from "./Result";
 
 function App() {
   const [healthStatus, setHealthStatus] = useState(null);
@@ -18,11 +19,6 @@ function App() {
   useEffect(() => {
     if (lint != null) {
       console.log(lint);
-      console.log(
-        lint.lint.map((item) => {
-          return item.message;
-        })
-      );
     }
   }, [lint]);
 
@@ -71,27 +67,30 @@ function App() {
   return (
     <div className="App">
       Health: {healthStatus}
+      {errorMessage != null && (
+        <>
+          <br />
+          Error: {errorMessage}
+        </>
+      )}
       <br />
-      {errorMessage != null && <>Error: {errorMessage}</>}
       <br />
-      <br />
-      <LangSelect onChange={changeLanguage} />
+      <span>
+        Programming Language:
+        <LangSelect onChange={changeLanguage} />
+      </span>
       <InputEditor
         language={language}
         code={code}
         onChange={handleEditorChange}
       />
-      {lint != null && (
-        <>
-          Test{" "}
-          {lint.lint.map((item) => {
-            return item.message;
-          })}
-        </>
-      )}
+      <div className="result">
+        {lint != null && (
+          <Result language={language} lint={lint.lint[0]} code={code} />
+        )}
+      </div>
       <br />
       <SubmitButton language={language} code={code} onClick={handleResponse} />
-      <br />
     </div>
   );
 }
