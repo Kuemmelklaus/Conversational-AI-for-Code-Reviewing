@@ -1,105 +1,18 @@
 import "./App.css";
-import React, { useState, useEffect, useCallback } from "react";
-import Editor from "@monaco-editor/react";
-import Select from "react-select";
-
-const CodeEditor = ({ lang, onLangChange }) => {
-  const [code, setCode] = useState(null);
-  const [language, setLanguage] = useState(null);
-  const [theme, setTheme] = useState("vs-dark");
-  const [lint, setLint] = useState(null);
-  const [working, setWorking] =useState(false);
-  const langOptions = [
-    { value: "python", label: "Python" },
-    { value: "abap", label: "ABAP" },
-  ];
-
-  //initialize programming language
-  useEffect(() => {
-    setLanguage(lang);
-  }, []);
-
-  useEffect(() => {
-    console.log("response:", lint);
-  }, [lint]);
-
-  //save code in react state
-  const handleEditorChange = (data) => {
-    setCode(data);
-  };
-
-  //change programming language
-  const handleLangChange = useCallback(
-    (event) => {
-      setLanguage(event.value);
-    },
-    [onLangChange]
-  );
-
-  function ReviewButton() {
-    function sendPostRequest(code, language) {
-      var jsonData = {
-        programmingLanguage: language,
-        code: JSON.stringify(code),
-      };
-
-      //send http request
-      const fetchRequest = async () => {
-        const response = await fetch(
-          "http://127.0.0.1:5000/linter?dummy=true",
-          {
-            method: "POST",
-            headers: new Headers({ "content-type": "application/json" }),
-            body: JSON.stringify(jsonData),
-          }
-        );
-        const data = await response.json();
-        setLint(data);
-      };
-
-      fetchRequest().catch((error) => {
-        console.error("There was an error:", error);
-      });
-    }
-    return (
-      <button onClick={() => sendPostRequest(code, language)}>
-        Send review request
-      </button>
-    );
-  }
-
-  return (
-    <div>
-      <div className="lang-select">
-      <Select
-        onChange={(event) => {
-          onLangChange(event);
-          handleLangChange(event);
-        }}
-        options={langOptions}
-        defaultValue={langOptions[0]}
-      />
-      </div>
-      <Editor
-        height={"70vh"}
-        width={`100%`}
-        value={code}
-        language={language}
-        theme={theme}
-        onChange={handleEditorChange}
-      />
-      <p>
-        <br />
-      </p>
-      <ReviewButton />
-    </div>
-  );
-};
+import { useEffect, useState } from "react";
+import LangSelect from "./LangSelect";
+import InputEditor from "./InputEditor";
+import SubmitButton from "./SubmitButton";
 
 function App() {
   const [healthStatus, setHealthStatus] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [language, setLanguage] = useState("python");
+  const [code, setCode] = useState(null);
+
+  useEffect(() => {
+    console.log(language);
+  }, [language]);
 
   //periodically check health status
   useEffect(() => {
@@ -126,21 +39,27 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-  const langChange = (event) => {
-    setLanguage(event.value);
-  };
+  function changeLanguage(data) {
+    setLanguage(data.value);
+  }
+
+  function handleEditorChange(data) {
+    setCode(data);
+  }
 
   return (
     <div className="App">
-      <div className="App-header">
-        <div>Health: {healthStatus}</div>
-        {errorMessage != null && <div>Error: {errorMessage}</div>}
-      </div>
-      <div className="App-body">
-        <div className="code-editor">
-          <CodeEditor lang={language} onLangChange={langChange} />
-        </div>
-      </div>
+      Health: {healthStatus}
+      {errorMessage != null && <>Error: {errorMessage}</>}
+      <br />
+      <LangSelect onChange={changeLanguage} />
+      <InputEditor
+        language={language}
+        code={code}
+        onChange={handleEditorChange}
+      />
+      <br />
+      <SubmitButton />
     </div>
   );
 }
