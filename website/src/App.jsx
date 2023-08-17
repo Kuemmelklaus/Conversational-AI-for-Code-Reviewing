@@ -8,28 +8,44 @@ function App() {
   const [healthStatus, setHealthStatus] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [language, setLanguage] = useState("python");
-  const [code, setCode] = useState(null);
+  const [code, setCode] = useState(() => {
+    const localValue = localStorage.getItem("CODE");
+    if (localValue === null) return null;
+    return JSON.parse(localValue);
+  });
   const [lint, setLint] = useState(null);
 
   useEffect(() => {
-    console.log(lint);
+    if (lint != null) {
+      console.log(lint);
+      console.log(
+        lint.lint.map((item) => {
+          return item.message;
+        })
+      );
+    }
   }, [lint]);
+
+  //store code locally
+  useEffect(() => {
+    localStorage.setItem("CODE", JSON.stringify(code));
+  }, [code]);
 
   //periodically check health status
   useEffect(() => {
+    const getHealth = async () => {
+      const response = await fetch("http://127.0.0.1:5000/health");
+      const data = await response.json();
+      setHealthStatus(data.status);
+      setErrorMessage(null);
+    };
+
     const catchError = () => {
       getHealth().catch((error) => {
         setHealthStatus("fail");
         setErrorMessage(error.toString());
         console.error("There was an error!", error);
       });
-    };
-
-    const getHealth = async () => {
-      const response = await fetch("http://127.0.0.1:5000/health");
-      const data = await response.json();
-      setHealthStatus(data.status);
-      setErrorMessage(null);
     };
 
     const interval = setInterval(() => {
@@ -65,8 +81,16 @@ function App() {
         code={code}
         onChange={handleEditorChange}
       />
+      {lint != null && (
+        <>
+          Test{" "}
+          {lint.lint.map((item) => {
+            return item.message;
+          })}
+        </>
+      )}
       <br />
-      <SubmitButton language={language} code={code} onClick={handleResponse}/>
+      <SubmitButton language={language} code={code} onClick={handleResponse} />
       <br />
     </div>
   );

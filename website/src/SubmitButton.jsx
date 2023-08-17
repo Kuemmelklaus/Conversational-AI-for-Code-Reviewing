@@ -23,7 +23,7 @@ function SubmitButton({ language, code, onClick }) {
 
   return (
     <button
-      className="button-31"
+      className="button"
       onClick={() => sendPostRequest(language, code)}
     >
       Send review request

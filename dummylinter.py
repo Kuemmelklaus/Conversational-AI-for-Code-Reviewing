@@ -1,3 +1,4 @@
+import datetime
 import json
 import time
 
@@ -7,6 +8,10 @@ class Dlinter:
         self.dummy = json.loads('{"success": "true"}')
         self.dummy["programmingLanguage"] = programmingLanguage
         self.dummy["code"] = code
+        self.dummy["completion_tokens"] = 420
+        self.dummy["model"] = "gpt-dummy"
+        self.dummy["total_tokens"] = 2546
+        self.dummy["date"] = datetime.datetime.now().isoformat()
         self.dummy["lint"] = [{
             "lineFrom": 1,
             "lineTo": 1,
