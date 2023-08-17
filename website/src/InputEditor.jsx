@@ -4,7 +4,7 @@ function InputEditor({ language, code, onChange }) {
 
   return (
     <Editor
-      height={"70vh"}
+      height={"60vh"}
       width={`100%`}
       value={code}
       language={language}

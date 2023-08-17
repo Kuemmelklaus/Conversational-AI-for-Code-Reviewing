@@ -9,10 +9,11 @@ function App() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [language, setLanguage] = useState("python");
   const [code, setCode] = useState(null);
+  const [lint, setLint] = useState(null);
 
   useEffect(() => {
-    console.log(language);
-  }, [language]);
+    console.log(lint);
+  }, [lint]);
 
   //periodically check health status
   useEffect(() => {
@@ -47,10 +48,16 @@ function App() {
     setCode(data);
   }
 
+  function handleResponse(data) {
+    setLint(data);
+  }
+
   return (
     <div className="App">
       Health: {healthStatus}
+      <br />
       {errorMessage != null && <>Error: {errorMessage}</>}
+      <br />
       <br />
       <LangSelect onChange={changeLanguage} />
       <InputEditor
@@ -59,7 +66,8 @@ function App() {
         onChange={handleEditorChange}
       />
       <br />
-      <SubmitButton />
+      <SubmitButton language={language} code={code} onClick={handleResponse}/>
+      <br />
     </div>
   );
 }
