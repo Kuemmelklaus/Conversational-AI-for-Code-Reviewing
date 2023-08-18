@@ -3,12 +3,22 @@
   background-color: #000314;
   display: flex;
   min-height: 100vh;
-  align-items: center;
   color: white;
   min-width: 100%;
   width: 100%;
   flex-direction: column;
   font-size: calc(6px + 2vmin);
+}
+
+.langSel {
+  display: flex;
+  flex-direction: row;
+}
+
+.request {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .button {
@@ -47,6 +57,8 @@
 .result {
   font-family: "Fira Code", monospace;
   text-align: left;
+  align-items: left;
+  font-size: 14px;
 }
 
 .loader {

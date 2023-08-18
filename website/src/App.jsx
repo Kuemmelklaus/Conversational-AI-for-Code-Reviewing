@@ -62,6 +62,7 @@ function App() {
 
   function changeLanguage(data) {
     setLanguage(data.value);
+    setReviewState("modified");
   }
 
   function handleEditorChange(data) {
@@ -79,37 +80,38 @@ function App() {
 
   return (
     <div className="App">
-      Health: {healthStatus}
-      {errorMessage != null && (
-        <>
-          <br />
-          Error: {errorMessage}
-        </>
-      )}
-      <br />
-      <br />
-      <span>
-        Programming Language:
-        <LangSelect onChange={changeLanguage} />
-      </span>
-      <InputEditor
-        language={language}
-        code={code}
-        onChange={handleEditorChange}
-      />
-      <br />
-      {(reviewState === "init" ||
-        reviewState === "modified" ||
-        reviewState === "fail") && (
-        <SubmitButton
+      <div className="request">
+        Health: {healthStatus}
+        {errorMessage != null && (
+          <>
+            <br />
+            Error: {errorMessage}
+          </>
+        )}
+        <br />
+        <br />
+        <div className="langSel">
+          Programming Language: <LangSelect onChange={changeLanguage} />
+        </div>
+        <InputEditor
           language={language}
           code={code}
-          onClick={handleResponse}
-          handleReviewState={handleReviewState}
+          onChange={handleEditorChange}
         />
-      )}
-      {reviewState === "generating" && <div className="loader" />}
-      {reviewState === "fail" && <>Failed generating!</>}
+        <br />
+        {(reviewState === "init" ||
+          reviewState === "modified" ||
+          reviewState === "fail") && (
+          <SubmitButton
+            language={language}
+            code={code}
+            onClick={handleResponse}
+            handleReviewState={handleReviewState}
+          />
+        )}
+        {reviewState === "generating" && <div className="loader" />}
+        {reviewState === "fail" && <>Failed generating!</>}
+      </div>
       <br />
       <div className="result">
         {lint != null &&

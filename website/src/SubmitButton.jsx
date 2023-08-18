@@ -1,4 +1,12 @@
+import { useState } from "react";
+
 function SubmitButton({ language, code, onClick, handleReviewState }) {
+  const [dummy, setDummy] = useState(false);
+
+  function handleDummyChange(event) {
+    setDummy(event.target.checked);
+  }
+
   function sendPostRequest(language, code) {
     handleReviewState("generating");
     var jsonData = {
@@ -8,17 +16,24 @@ function SubmitButton({ language, code, onClick, handleReviewState }) {
 
     //send http request
     const fetchRequest = async () => {
-      const response = await fetch("http://127.0.0.1:5000/linter?dummy=true", {
+      if (dummy) {
+        var url = "http://127.0.0.1:5000/linter?dummy=true";
+      } else {
+        url = "http://127.0.0.1:5000/linter";
+      }
+      const response = await fetch(url, {
         method: "POST",
         headers: new Headers({ "content-type": "application/json" }),
         body: JSON.stringify(jsonData),
       });
       const data = await response.json();
-      console.log(data);
       if (data.success === true) {
         onClick(data);
         handleReviewState("success");
-      } else handleReviewState("fail");
+      } else {
+        console.warn("No valid response!");
+        handleReviewState("fail");
+      }
     };
 
     fetchRequest().catch((error) => {
@@ -28,9 +43,22 @@ function SubmitButton({ language, code, onClick, handleReviewState }) {
   }
 
   return (
-    <button className="button" onClick={() => sendPostRequest(language, code)}>
-      Send review request
-    </button>
+    <>
+      <span>
+        Dummy:{" "}
+        <input
+          type="checkbox"
+          checked={dummy}
+          onChange={(event) => handleDummyChange(event)}
+        />
+      </span>
+      <button
+        className="button"
+        onClick={() => sendPostRequest(language, code)}
+      >
+        Send review request
+      </button>
+    </>
   );
 }
 

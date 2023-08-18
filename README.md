@@ -55,9 +55,10 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 │   ├── src/                                    - 
 │   │   ├── App.css                             - website style
 │   │   ├── App.jsx                             - react server root component
-│   │   ├── InputEditor.jsx                     - editor component
-│   │   ├── LangSelect.jsx                      - select component
-│   │   ├── SubmitButton                        - button component
+│   │   ├── InputEditor.jsx                     - input editor component
+│   │   ├── LangSelect.jsx                      - language select component
+│   │   ├── Result.jsx                          - output result component
+│   │   ├── SubmitButton.jsx                    - send request button component
 │   │   ├── index.css                           - default react component
 │   │   ├── index.js                            - default react component
 │   │   └── reportWebVitals.js                  - default react component
@@ -103,12 +104,12 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 - [x] Dev Readme
 - [x] OpenAPI Spec erzeugen über apiflask
 - [x] Dockerisieren des Webservers
-- [ ] Standardoutput
+- [x] Standardoutput
 - [x] dockerhub
-- [ ] web UI (react) + notizen
-- [ ] Dummy Linter via Querparameter: /linter?dummy=true
-- [ ] Ausgabe Dummylinter an erwartete JSON Struktur anpassen
-- [ ] Live Reload /health in der ReactUI
+- [x] web UI (react) + notizen
+- [x] Dummy Linter via Querparameter: /linter?dummy=true
+- [x] Ausgabe Dummylinter an erwartete JSON Struktur anpassen
+- [x] Live Reload /health in der ReactUI
 
 ## Future
 

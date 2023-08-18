@@ -85,11 +85,13 @@ def lint(json_data, query_data):
     """
     Reviews code sent in body
     """
-    try:
+    if query_data != {}:
         if query_data["dummy"]:
             dummy = Dlinter(json_data["programmingLanguage"], json_data["code"])
             return dummy.get_lint()
-    except:
+        else:
+            return json.loads('{"success": false}')
+    else:
         linter = Linter(json_data["programmingLanguage"], json_data["code"])
         if linter.success:
             return linter.get_lint()
