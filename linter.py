@@ -13,14 +13,14 @@ class Linter:
         for n in msg:
             mes.append(n.get_message())
 
-        r = openai.ChatCompletion.create(
+        response = openai.ChatCompletion.create(
             model = mod,
             max_tokens = tok,
             temperature = tmp,
             n = 1,
             messages = mes
         )
-        return r
+        return response
 
     #add metadata to response JSON
     def add_metadata(self, lint, model, response, code, programming_language, success):

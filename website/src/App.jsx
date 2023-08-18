@@ -34,13 +34,13 @@ function App() {
       setErrorMessage(null);
     };
 
-    const catchError = () => {
+    function catchError() {
       getHealth().catch((error) => {
         setHealthStatus("fail");
         setErrorMessage(error.toString());
         console.error("There was an error!", error);
       });
-    };
+    }
 
     const interval = setInterval(() => {
       catchError();
