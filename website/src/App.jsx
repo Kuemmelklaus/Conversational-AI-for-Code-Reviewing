@@ -18,16 +18,6 @@ function App() {
   const [lint, setLint] = useState(null);
   const [reviewState, setReviewState] = useState("init");
 
-  //   useEffect(() => {
-  //     if (lint != null) {
-  //       console.log(lint);
-  //     }
-  //   }, [lint]);
-
-  useEffect(() => {
-    console.log(reviewState);
-  }, [reviewState]);
-
   //store code locally
   useEffect(() => {
     localStorage.setItem("CODE", JSON.stringify(code));
