@@ -5,10 +5,7 @@ function Result({ language, response, code }) {
 
   function getCode(lineFrom, lineTo) {
     var split = code.split("\r\n");
-    var snippet = split
-      .slice(lineFrom - 1, lineTo)
-      .toString()
-      .replaceAll(",", "\r\n");
+    var snippet = split.slice(lineFrom - 1, lineTo).join("\r\n");
     return snippet;
   }
 

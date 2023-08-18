@@ -14,8 +14,11 @@ function SubmitButton({ language, code, onClick, handleReviewState }) {
         body: JSON.stringify(jsonData),
       });
       const data = await response.json();
-      onClick(data);
-      handleReviewState("success");
+      console.log(data);
+      if (data.success === true) {
+        onClick(data);
+        handleReviewState("success");
+      } else handleReviewState("fail");
     };
 
     fetchRequest().catch((error) => {

@@ -4,6 +4,9 @@ import time
 
 class Dlinter:
 
+    # def __init__(self, programmingLanguage, code):
+    #     self.dummy = json.loads('{"success": "false"}')
+
     def __init__(self, programmingLanguage, code):
         self.dummy = json.loads('{"success": "true"}')
         self.dummy["programmingLanguage"] = programmingLanguage
@@ -19,7 +22,7 @@ class Dlinter:
         },
         {
             "lineFrom": 2,
-            "lineTo": 4,
+            "lineTo": 40,
             "message": "Bar"
         }
         ]

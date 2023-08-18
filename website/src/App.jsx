@@ -24,9 +24,9 @@ function App() {
   //     }
   //   }, [lint]);
 
-  //   useEffect(() => {
-  //     console.log(reviewState);
-  //   }, [reviewState]);
+  useEffect(() => {
+    console.log(reviewState);
+  }, [reviewState]);
 
   //store code locally
   useEffect(() => {
@@ -98,7 +98,9 @@ function App() {
         onChange={handleEditorChange}
       />
       <br />
-      {(reviewState === "init" || reviewState === "modified") && (
+      {(reviewState === "init" ||
+        reviewState === "modified" ||
+        reviewState === "fail") && (
         <SubmitButton
           language={language}
           code={code}
@@ -106,6 +108,8 @@ function App() {
           handleReviewState={handleReviewState}
         />
       )}
+      {reviewState === "generating" && <div className="loader" />}
+      {reviewState === "fail" && <>Failed generating!</>}
       <br />
       <div className="result">
         {lint != null &&

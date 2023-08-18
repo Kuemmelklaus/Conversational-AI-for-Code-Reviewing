@@ -104,4 +104,4 @@ class Linter:
                         #print(choices2.message.content)
                     except json.decoder.JSONDecodeError:
                         print("Response is not in JSON again!\nStopped!")
-                        self.lint = json.loads('{"success": false}')
+                        #self.lint = json.loads('{"success": false}')
