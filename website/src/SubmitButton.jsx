@@ -1,5 +1,4 @@
 function SubmitButton({ language, code, onClick, handleReviewState }) {
-  
   function sendPostRequest(language, code) {
     handleReviewState("generating");
     var jsonData = {
@@ -21,6 +20,7 @@ function SubmitButton({ language, code, onClick, handleReviewState }) {
 
     fetchRequest().catch((error) => {
       console.error("There was an error:", error);
+      handleReviewState("fail");
     });
   }
 

@@ -1,6 +1,8 @@
 import { CodeBlock, dracula } from "react-code-blocks";
 
-function Result({ language, lint, code }) {
+function Result({ language, response, code }) {
+  const lint = response.lint;
+
   function getCode(lineFrom, lineTo) {
     var split = code.split("\r\n");
     var snippet = split
@@ -12,14 +14,22 @@ function Result({ language, lint, code }) {
 
   return (
     <>
-      <CodeBlock
-        text={getCode(lint.lineFrom, lint.lineTo)}
-        showLineNumbers={true}
-        startingLineNumber={lint.lineFrom}
-        theme={dracula}
-        language={language}
-      />
-      Message: {lint.message}
+      {lint.map((item) => {
+        return (
+          <span key={lint.indexOf(item)}>
+            <CodeBlock
+              text={getCode(item.lineFrom, item.lineTo)}
+              showLineNumbers={true}
+              startingLineNumber={item.lineFrom}
+              theme={dracula}
+              language={language}
+            />
+            Message: {item.message}
+            <br />
+            <br />
+          </span>
+        );
+      })}
     </>
   );
 }

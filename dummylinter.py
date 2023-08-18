@@ -14,7 +14,7 @@ class Dlinter:
         self.dummy["date"] = datetime.datetime.now().isoformat()
         self.dummy["lint"] = [{
             "lineFrom": 1,
-            "lineTo": 3,
+            "lineTo": 1,
             "message": "Foo"
         },
         {

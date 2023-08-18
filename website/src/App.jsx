@@ -18,20 +18,21 @@ function App() {
   const [lint, setLint] = useState(null);
   const [reviewState, setReviewState] = useState("init");
 
-  useEffect(() => {
-    if (lint != null) {
-      console.log(lint);
-    }
-  }, [lint]);
+  //   useEffect(() => {
+  //     if (lint != null) {
+  //       console.log(lint);
+  //     }
+  //   }, [lint]);
 
-  useEffect(() => {
-    console.log(reviewState);
-  }, [reviewState]);
+  //   useEffect(() => {
+  //     console.log(reviewState);
+  //   }, [reviewState]);
 
   //store code locally
   useEffect(() => {
     localStorage.setItem("CODE", JSON.stringify(code));
-    setReviewState("init");
+    if (reviewState !== "init") setReviewState("modified");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [code]);
 
   //periodically check health status
@@ -96,13 +97,8 @@ function App() {
         code={code}
         onChange={handleEditorChange}
       />
-      <div className="result">
-        {lint != null && reviewState === "success" && (
-          <Result language={language} lint={lint.lint[0]} code={reviewedCode} />
-        )}
-      </div>
       <br />
-      {reviewState === "init" && (
+      {(reviewState === "init" || reviewState === "modified") && (
         <SubmitButton
           language={language}
           code={code}
@@ -110,6 +106,13 @@ function App() {
           handleReviewState={handleReviewState}
         />
       )}
+      <br />
+      <div className="result">
+        {lint != null &&
+          (reviewState === "success" || reviewState === "modified") && (
+            <Result language={language} response={lint} code={reviewedCode} />
+          )}
+      </div>
     </div>
   );
 }
