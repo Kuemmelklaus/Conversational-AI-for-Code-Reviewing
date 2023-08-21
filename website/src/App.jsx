@@ -6,6 +6,7 @@ import SubmitButton from "./SubmitButton";
 import Result from "./Result";
 
 function App() {
+  //declaring react states
   const [healthStatus, setHealthStatus] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [language, setLanguage] = useState("python");
@@ -54,7 +55,11 @@ function App() {
     if (reviewState !== "generating") {
       setLanguage(data.value);
       setReviewState("modified");
-    } else console.warn("Do not change language while a request is still processing!");
+    } else {
+      console.warn(
+        "Do not change language while a request is still processing!"
+      );
+    }
   }
 
   function handleEditorChange(data) {
@@ -92,9 +97,7 @@ function App() {
           onChange={handleEditorChange}
         />
         <br />
-        {(reviewState === "init" ||
-          reviewState === "modified" ||
-          reviewState === "fail") && (
+        {reviewState !== "generating" && (
           <SubmitButton
             language={language}
             code={code}
