@@ -51,8 +51,10 @@ function App() {
   }, []);
 
   function changeLanguage(data) {
-    setLanguage(data.value);
-    setReviewState("modified");
+    if (reviewState !== "generating") {
+      setLanguage(data.value);
+      setReviewState("modified");
+    } else console.warn("Do not change language while a request is still processing!");
   }
 
   function handleEditorChange(data) {
@@ -81,7 +83,8 @@ function App() {
         <br />
         <br />
         <div className="langSel">
-          Programming Language: <LangSelect onChange={changeLanguage} />
+          Programming Language:{" "}
+          <LangSelect onChange={changeLanguage} reviewState={reviewState} />
         </div>
         <InputEditor
           language={language}

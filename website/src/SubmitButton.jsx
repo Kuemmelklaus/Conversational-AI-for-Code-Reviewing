@@ -44,14 +44,14 @@ function SubmitButton({ language, code, onClick, handleReviewState }) {
 
   return (
     <>
-      <span>
+      <label>
         Dummy:{" "}
         <input
           type="checkbox"
           checked={dummy}
           onChange={(event) => handleDummyChange(event)}
         />
-      </span>
+      </label>
       <button
         className="button"
         onClick={() => sendPostRequest(language, code)}

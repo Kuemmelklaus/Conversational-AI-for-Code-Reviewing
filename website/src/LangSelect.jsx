@@ -1,6 +1,6 @@
 import Select from "react-select";
 
-function LangSelect({ onChange }) {
+function LangSelect({ onChange, reviewState }) {
   const langOptions = [
     { value: "python", label: "Python" },
     { value: "abap", label: "ABAP" },
@@ -27,6 +27,7 @@ function LangSelect({ onChange }) {
       defaultValue={langOptions[0]}
       onChange={onChange}
       theme={theme}
+      isDisabled={reviewState === "generating" ? true : false}
     />
   );
 }
