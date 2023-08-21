@@ -11,7 +11,7 @@ function Result({ language, response, code }) {
 
   return (
     <>
-      <h1>Result</h1>
+      <h1>Review Result</h1>
       {lint.map((item) => {
         return (
           <span key={lint.indexOf(item)}>
