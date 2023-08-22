@@ -67,7 +67,7 @@ class Linter:
 
         #unsupported programming language
         else:
-            return False
+            raise Exception("Unsupported programming language!")
 
     def get_lint(self):
         return self.lint
@@ -78,10 +78,10 @@ class Linter:
         self.success = False
 
         #Select the GPT model ("gpt-3.5-turbo", "gpt-4", "gpt-3.5-turbo-16k" ...)
-        m = "gpt-3.5-turbo-16k"
+        model = "gpt-3.5-turbo-16k"
 
         #Select the maximum response tokens
-        maxTok = 2000
+        max_tokens = 2000
 
         #load the openai api key from the file "API-Key.env"
         load_dotenv("./API-Key.env")
@@ -89,40 +89,40 @@ class Linter:
         openai.api_key = key
 
         #initail prompts + few-shot example
-        messages = self.create_prompt(programming_language, code)
+        try:
+            messages = self.create_prompt(programming_language, code)
+        except Exception as exception:
+            print(exception)
+            quit()
 
         #generate response
-        if messages != False:
-            print("Generating response ...")
-            response1 = self.create_response(m, maxTok, 0.1, messages)
+        print("Generating response ...")
+        response1 = self.create_response(model, max_tokens, 0.1, messages)
 
-            for choices1 in response1["choices"]:
-                try:
-                    print(response1)
-                    print("\n========================================\n")
-                    self.lint = loads(choices1.message.content)
-                    self.lint = self.add_metadata(self.lint, m, response1, code, programming_language, True)
-                    self.success = True
-                    print("Successful after one try.")
+        for choices1 in response1["choices"]:
+            try:
+                print(response1)
+                print("\n========================================\n")
+                self.lint = loads(choices1.message.content)
+                self.lint = self.add_metadata(self.lint, model, response1, code, programming_language, True)
+                self.success = True
+                print("Successful after one try.")
 
-                except decoder.JSONDecodeError:
-                    print("Response is not in JSON!\nRetrying ...")
-                    messages.append(Message("assistant", choices1.message.content))
-                    messages.append(Message("user", "Your response was not a valid JSON. Please try again without any strings attached to your response."))
+            except decoder.JSONDecodeError:
+                print("Response is not in JSON!\nRetrying ...")
+                messages.append(Message("assistant", choices1.message.content))
+                messages.append(Message("user", "Your response was not a valid JSON. Please try again without any strings attached to your response."))
 
-                    #creating 2nd response
-                    response2 = self.create_response(m, maxTok + response1.usage.completion_tokens, 0.1, messages)
+                #creating 2nd response
+                response2 = self.create_response(model, max_tokens + response1.usage.completion_tokens, 0.1, messages)
 
-                    for choices2 in response2["choices"]:
-                        try:
-                            print(response2)
-                            print("\n========================================\n")
-                            self.lint = loads(choices2.message.content)
-                            self.lint = self.add_metadata(self.lint, m, response2, code, programming_language, True)
-                            self.success = True
-                            print("Successful after two tries.")
-                        except decoder.JSONDecodeError:
-                            print("Response is not in JSON again!\nStopped!")
-        
-        else:
-            print("Unsupported programming language!")
+                for choices2 in response2["choices"]:
+                    try:
+                        print(response2)
+                        print("\n========================================\n")
+                        self.lint = loads(choices2.message.content)
+                        self.lint = self.add_metadata(self.lint, model, response2, code, programming_language, True)
+                        self.success = True
+                        print("Successful after two tries.")
+                    except decoder.JSONDecodeError:
+                        print("Response is not in JSON again!\nStopped!")

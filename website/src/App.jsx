@@ -45,10 +45,11 @@ function App() {
 
     const interval = setInterval(() => {
       catchError();
-    }, 30000);
+    }, 5000);
 
     catchError();
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function changeLanguage(data) {

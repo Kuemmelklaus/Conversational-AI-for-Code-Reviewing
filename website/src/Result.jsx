@@ -13,6 +13,15 @@ function Result({ language, response, code }) {
   return (
     <>
       <h1>Review Result</h1>
+      <h3>Metadata:</h3>
+      <span>
+        Model: {response.model}
+        <br />
+        Completion Tokens: {response.completion_tokens}
+        <br />
+        <br />
+      </span>
+      <h3>Critique:</h3>
       {lint.map((item) => {
         return (
           <span key={lint.indexOf(item)}>
