@@ -1,8 +1,6 @@
 import { CodeBlock, dracula } from "react-code-blocks";
 
 function Result({ language, response, code }) {
-  const lint = response.lint;
-
   //get code between lineFrom and lineTo
   function getCode(lineFrom, lineTo) {
     var split = code.split("\r\n");
@@ -22,9 +20,9 @@ function Result({ language, response, code }) {
         <br />
       </span>
       <h3>Critique:</h3>
-      {lint.map((item) => {
+      {response.lint.map((item) => {
         return (
-          <span key={lint.indexOf(item)}>
+          <span key={response.lint.indexOf(item)}>
             <CodeBlock
               text={getCode(item.lineFrom, item.lineTo)}
               showLineNumbers={true}
