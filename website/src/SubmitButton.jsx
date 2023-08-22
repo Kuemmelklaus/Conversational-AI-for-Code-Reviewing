@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function SubmitButton({ language, code, onClick, handleReviewState }) {
+function SubmitButton({ language, code, handleResponse, handleReviewState }) {
   const [dummy, setDummy] = useState(false);
 
   function handleDummyChange(event) {
@@ -9,6 +9,8 @@ function SubmitButton({ language, code, onClick, handleReviewState }) {
 
   function sendPostRequest(language, code) {
     handleReviewState("generating");
+
+    //creating request body
     var jsonData = {
       programmingLanguage: language,
       code: JSON.stringify(code),
@@ -21,6 +23,7 @@ function SubmitButton({ language, code, onClick, handleReviewState }) {
       } else {
         url = "http://127.0.0.1:5000/linter";
       }
+      
       const response = await fetch(url, {
         method: "POST",
         headers: new Headers({ "content-type": "application/json" }),
@@ -28,7 +31,7 @@ function SubmitButton({ language, code, onClick, handleReviewState }) {
       });
       const data = await response.json();
       if (data.success === true) {
-        onClick(data);
+        handleResponse(data);
         handleReviewState("success");
       } else {
         console.warn("No valid response!");

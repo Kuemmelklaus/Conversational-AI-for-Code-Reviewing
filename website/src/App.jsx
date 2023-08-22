@@ -75,6 +75,7 @@ function App() {
     setReviewedCode(code);
   }
 
+  //returning DOM
   return (
     <div className="App">
       <div className="request">
@@ -101,7 +102,7 @@ function App() {
           <SubmitButton
             language={language}
             code={code}
-            onClick={handleResponse}
+            handleResponse={handleResponse}
             handleReviewState={handleReviewState}
           />
         )}

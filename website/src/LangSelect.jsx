@@ -1,6 +1,8 @@
 import Select from "react-select";
 
 function LangSelect({ onChange, reviewState }) {
+
+  //creating programming language options
   const langOptions = [
     { value: "python", label: "Python" },
     { value: "abap", label: "ABAP" },

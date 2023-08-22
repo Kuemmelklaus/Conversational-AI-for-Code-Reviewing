@@ -3,6 +3,7 @@ import { CodeBlock, dracula } from "react-code-blocks";
 function Result({ language, response, code }) {
   const lint = response.lint;
 
+  //get code between lineFrom and lineTo
   function getCode(lineFrom, lineTo) {
     var split = code.split("\r\n");
     var snippet = split.slice(lineFrom - 1, lineTo).join("\r\n");

@@ -65,13 +65,14 @@ class Linter:
             ]
             return messages
 
+        #unsupported programming language
         else:
             return False
 
     def get_lint(self):
         return self.lint
 
-    #Constuct
+    #Constuct containing API request
     def __init__(self, programming_language, code):
 
         self.success = False
@@ -81,20 +82,6 @@ class Linter:
 
         #Select the maximum response tokens
         maxTok = 2000
-
-        #load example layout
-        #with open("./JSON/Layout.json", "r") as l:
-        #    layout = l.read()
-
-        #load few-shot example
-        #with open("./PythonExamples/example.py") as c:
-        #with open("./PythonExamples/guessinggame.py") as c:
-        #    example = c.read()
-        
-        #load few-shot answer
-        #with open("./JSON/exampleLint.json") as g:
-        # with open("./JSON/guessinggameLint.json") as g:
-        #     lint = g.read()
 
         #load the openai api key from the file "API-Key.env"
         load_dotenv("./API-Key.env")
@@ -117,13 +104,15 @@ class Linter:
                     self.lint = self.add_metadata(self.lint, m, response1, code, programming_language, True)
                     self.success = True
                     print("Successful after one try.")
-                    #print(choices1.message.content)
+
                 except json.decoder.JSONDecodeError:
                     print("Response is not in JSON!\nRetrying ...")
-                    #print(choices1.message.content)
                     messages.append(Message("assistant", choices1.message.content))
                     messages.append(Message("user", "Your response was not a valid JSON. Please try again without any strings attached to your response."))
+
+                    #creating 2nd response
                     response2 = self.create_response(m, maxTok + response1.usage.completion_tokens, 0.1, messages)
+
                     for choices2 in response2["choices"]:
                         try:
                             print(response2)
@@ -132,9 +121,8 @@ class Linter:
                             self.lint = self.add_metadata(self.lint, m, response2, code, programming_language, True)
                             self.success = True
                             print("Successful after two tries.")
-                            #print(choices2.message.content)
                         except json.decoder.JSONDecodeError:
                             print("Response is not in JSON again!\nStopped!")
-                            #self.lint = json.loads('{"success": false}')
+        
         else:
             print("Unsupported programming language!")

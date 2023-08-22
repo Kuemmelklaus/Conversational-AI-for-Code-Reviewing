@@ -14,10 +14,12 @@ app.config["DESCRIPTION"] = """
 This API is trying to give helpful coding advices in Python and hopefully one day in ABAP as well.
 """
 
+#root website
 @app.get("/")
 def root():
     return 'use "POST /linter"'
 
+#health request
 @app.get("/health")
 def health():
     """
@@ -25,6 +27,8 @@ def health():
     """
     return {"status": "pass", "description": "This API is trying to give helpful coding advices in Python and hopefully one day in ABAP as well."}
 
+
+#defining schemas
 class Request(Schema):
     programmingLanguage = String(
         required = True,
@@ -77,6 +81,7 @@ class Example_Response(Schema):
         }
     ]})
 
+#API request
 @app.post("/linter")
 @app.input(Request, location = "json")
 @app.input(Query, location="query")
@@ -85,12 +90,15 @@ def lint(json_data, query_data):
     """
     Reviews code sent in body
     """
+    #dummy
     if query_data != {}:
         if query_data["dummy"]:
             dummy = Dlinter(json_data["programmingLanguage"], json_data["code"])
             return dummy.get_lint()
         else:
             return json.loads('{"success": false}')
+
+    #API
     else:
         linter = Linter(json_data["programmingLanguage"], json_data["code"])
         if linter.success:
