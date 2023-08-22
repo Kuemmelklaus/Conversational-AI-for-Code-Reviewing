@@ -1,4 +1,4 @@
-import json
+from json import loads
 from apiflask import APIFlask, Schema
 from apiflask.fields import String, Integer, Boolean, List, Field
 from linter import Linter
@@ -96,11 +96,11 @@ def lint(json_data, query_data):
             dummy = Dlinter(json_data["programmingLanguage"], json_data["code"])
             return dummy.get_lint()
         else:
-            return json.loads('{"success": false}')
+            return loads('{"success": false}')
 
     #API
     else:
         linter = Linter(json_data["programmingLanguage"], json_data["code"])
         if linter.success:
             return linter.get_lint()
-        return json.loads('{"success": false}')
+        return loads('{"success": false}')

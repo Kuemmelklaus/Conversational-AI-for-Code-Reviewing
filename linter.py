@@ -1,7 +1,7 @@
-import os
-import openai
-import datetime
-import json
+import openai 
+from os import getenv
+from datetime import datetime
+from json import loads, decoder
 from message import Message
 from dotenv import load_dotenv
 
@@ -24,7 +24,7 @@ class Linter:
 
     #add metadata to response JSON
     def add_metadata(self, lint, model, response, code, programming_language, success):
-        lint["date"] = datetime.datetime.now().isoformat()
+        lint["date"] = datetime.now().isoformat()
         lint["model"] = model
         lint["total_tokens"] = response.usage.total_tokens
         lint["completion_tokens"] = response.usage.completion_tokens
@@ -85,8 +85,8 @@ class Linter:
 
         #load the openai api key from the file "API-Key.env"
         load_dotenv("./API-Key.env")
-        api_key = os.getenv("OPENAI_KEY")
-        openai.api_key = api_key
+        key = getenv("OPENAI_KEY")
+        openai.api_key = key
 
         #initail prompts + few-shot example
         messages = self.create_prompt(programming_language, code)
@@ -100,12 +100,12 @@ class Linter:
                 try:
                     print(response1)
                     print("\n========================================\n")
-                    self.lint = json.loads(choices1.message.content)
+                    self.lint = loads(choices1.message.content)
                     self.lint = self.add_metadata(self.lint, m, response1, code, programming_language, True)
                     self.success = True
                     print("Successful after one try.")
 
-                except json.decoder.JSONDecodeError:
+                except decoder.JSONDecodeError:
                     print("Response is not in JSON!\nRetrying ...")
                     messages.append(Message("assistant", choices1.message.content))
                     messages.append(Message("user", "Your response was not a valid JSON. Please try again without any strings attached to your response."))
@@ -117,11 +117,11 @@ class Linter:
                         try:
                             print(response2)
                             print("\n========================================\n")
-                            self.lint = json.loads(choices2.message.content)
+                            self.lint = loads(choices2.message.content)
                             self.lint = self.add_metadata(self.lint, m, response2, code, programming_language, True)
                             self.success = True
                             print("Successful after two tries.")
-                        except json.decoder.JSONDecodeError:
+                        except decoder.JSONDecodeError:
                             print("Response is not in JSON again!\nStopped!")
         
         else:
