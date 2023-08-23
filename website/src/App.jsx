@@ -4,12 +4,14 @@ import LangSelect from "./LangSelect";
 import InputEditor from "./InputEditor";
 import SubmitButton from "./SubmitButton";
 import Result from "./Result";
+import ModelSelect from "./ModelSelect";
 
 function App() {
   //declaring react states
   const [healthStatus, setHealthStatus] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [language, setLanguage] = useState("python");
+  const [model, setModel] = useState("gpt-3.5-turbo-16k");
   const [code, setCode] = useState(() => {
     const localValue = localStorage.getItem("CODE");
     if (localValue === null) return null;
@@ -63,6 +65,10 @@ function App() {
     }
   }
 
+  function changeModel(data) {
+    setModel(data.value);
+  }
+
   function handleEditorChange(data) {
     setCode(data);
   }
@@ -89,9 +95,11 @@ function App() {
         )}
         <br />
         <br />
-        <div className="langSel">
-          Programming Language:{" "}
+        <div className="Select">
+          Language:&emsp;
           <LangSelect onChange={changeLanguage} reviewState={reviewState} />
+          &emsp;&emsp; Model:&emsp;
+          <ModelSelect onChange={changeModel} reviewState={reviewState} />
         </div>
         <InputEditor
           language={language}
@@ -103,6 +111,7 @@ function App() {
           <SubmitButton
             language={language}
             code={code}
+            model={model}
             handleResponse={handleResponse}
             handleReviewState={handleReviewState}
           />

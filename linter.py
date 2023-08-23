@@ -73,15 +73,15 @@ class Linter:
         return self.lint
 
     #Constuct containing API request
-    def __init__(self, programming_language, code):
+    def __init__(self, programming_language, code, model):
 
         self.success = False
 
         #Select the GPT model ("gpt-3.5-turbo", "gpt-4", "gpt-3.5-turbo-16k" ...)
-        model = "gpt-3.5-turbo-16k"
+        # model = "gpt-3.5-turbo-16k"
 
         #Select the maximum response tokens
-        max_tokens = 9999
+        max_tokens = 2000
 
         #load the openai api key from the file "API-Key.env"
         load_dotenv("./API-Key.env")

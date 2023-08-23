@@ -40,9 +40,9 @@ class Request(Schema):
     )
 
 class Query(Schema):
-    dummy = String(
-        required = False,
-        metadata = {"title": "use a dummy instead of the real API", "example": "true"}
+    model = String(
+        required = True,
+        metadata = {"title": "model that is used to generate the response", "example": "gpt-3.5-turbo-16k"}
     )
 
 class Example_Response(Schema):
@@ -64,6 +64,9 @@ class Example_Response(Schema):
     success = Boolean(
         required = True,
         metadata = {"title": "Confirms that the response is valid", "example": True}
+    )
+    failReason = String(
+        metadata = {"title": "describes the reason no response was generated", "example": "unsupported Language"}
     )
     total_tokens = Integer(
         metadata = {"title": "Tokens used which contains the request and the response", "example": 2696}
@@ -90,17 +93,40 @@ def lint(json_data, query_data):
     """
     Reviews code sent in body
     """
-    #dummy
-    if query_data != {}:
-        if query_data["dummy"]:
-            dummy = Dlinter(json_data["programmingLanguage"], json_data["code"])
-            return dummy.get_lint()
-        else:
-            return loads('{"success": false}')
-
-    #API
-    else:
-        linter = Linter(json_data["programmingLanguage"], json_data["code"])
+    
+    def send(model):
+        linter = Linter(json_data["programmingLanguage"], json_data["code"], model)
         if linter.success:
             return linter.get_lint()
-        return loads('{"success": false}')
+        return loads('{"success": false, "failReason": "internal"}')
+
+    if query_data != {}:
+        match query_data["model"]:
+            case "gpt-3.5-turbo-16k":
+                return send(query_data["model"])
+            case "gpt-4":
+                return send(query_data["model"])
+            case "dummy":
+                dummy = Dlinter(json_data["programmingLanguage"], json_data["code"])
+                return dummy.get_lint()
+            case _:
+                return loads('{"success": false, "failReason": "unsupported Language"}')
+            
+        
+    else:
+        return loads('{"success": false, "failReason": "bad query"}')
+    
+    # #dummy
+    # if query_data != {}:
+    #     if query_data["dummy"]:
+    #         dummy = Dlinter(json_data["programmingLanguage"], json_data["code"])
+    #         return dummy.get_lint()
+    #     else:
+    #         return loads('{"success": false}')
+
+    # #API
+    # else:
+    #     linter = Linter(json_data["programmingLanguage"], json_data["code"])
+    #     if linter.success:
+    #         return linter.get_lint()
+    #     return loads('{"success": false}')
