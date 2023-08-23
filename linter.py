@@ -81,7 +81,7 @@ class Linter:
         model = "gpt-3.5-turbo-16k"
 
         #Select the maximum response tokens
-        max_tokens = 2000
+        max_tokens = 12000
 
         #load the openai api key from the file "API-Key.env"
         load_dotenv("./API-Key.env")
