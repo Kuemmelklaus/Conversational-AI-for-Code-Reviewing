@@ -2,23 +2,18 @@ import openai
 from os import getenv
 from datetime import datetime
 from json import loads, decoder
-from message import Message
 from dotenv import load_dotenv
 
 class Linter:
 
     #method to create a response with a model, max response tokens, temperature, and message array
     def create_response(self, mod, tok, tmp, msg):
-        mes = []
-        for n in msg:
-            mes.append(n.get_message())
-
         response = openai.ChatCompletion.create(
             model = mod,
             max_tokens = tok,
             temperature = tmp,
             n = 1,
-            messages = mes
+            messages = msg
         )
         return response
 
@@ -32,24 +27,29 @@ class Linter:
         lint["programmingLanguage"] = programming_language
         lint["success"] = success
         return lint
+    
+    def create_message(self, role, message):
+        return {"role": role, "content": message}
 
     #initail prompts + few-shot example
     def create_prompt(self, programming_language, code):
 
+        assets = "../../assets/"
+
         #Python prompt
         if programming_language == "python":
             #load few-shot example
-            with open("./PythonExamples/guessinggame.py") as c:
+            with open(f"{assets}PythonExamples/guessinggame.py") as c:
                 example = c.read()
             #load few-shot answer
-            with open("./JSON/guessinggameLint.json") as g:
+            with open(f"{assets}JSON/guessinggameLint.json") as g:
                 lint = g.read()
             
             messages = [
-                Message("system", f"Your task is to review code in the {programming_language} programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo. The message can not include inconsistent Indentations or missing docstrings."),
-                Message("user", f"Here is some Python code:\n{example}"),
-                Message("assistant", lint),
-                Message("user", f"Great response! Here is some more {programming_language} code:\n{code}")
+                self.create_message("system", f"Your task is to review code in the {programming_language} programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo. The message can not include inconsistent Indentations or missing docstrings."),
+                self.create_message("user", f"Here is some Python code:\n{example}"),
+                self.create_message("assistant", lint),
+                self.create_message("user", f"Great response! Here is some more {programming_language} code:\n{code}")
             ]
             return messages
 
@@ -60,8 +60,8 @@ class Linter:
                 layout = l.read()
 
             messages = [
-                Message("system", f"Your task is to review code in the {programming_language} programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains an array inside the field 'lint'. All objects inside 'lint' contain the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo. The message can not include inconsistent Indentations or missing docstrings. Your layout should look like this: {layout}"),
-                Message("user", f"Here is some {programming_language} code:\n{code}")
+                self.create_message("system", f"Your task is to review code in the {programming_language} programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains an array inside the field 'lint'. All objects inside 'lint' contain the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo. The message can not include inconsistent Indentations or missing docstrings. Your layout should look like this: {layout}"),
+                self.create_message("user", f"Here is some {programming_language} code:\n{code}")
             ]
             return messages
 
@@ -110,8 +110,8 @@ class Linter:
 
             except decoder.JSONDecodeError:
                 print("Response is not in JSON!\nRetrying ...")
-                messages.append(Message("assistant", choices1.message.content))
-                messages.append(Message("user", "Your response was not a valid JSON. Please try again without any strings attached to your response."))
+                messages.append(self.create_message("assistant", choices1.message.content))
+                messages.append(self.create_message("user", "Your response was not a valid JSON. Please try again without any strings attached to your response."))
 
                 #creating 2nd response
                 response2 = self.create_response(model, max_tokens + response1.usage.completion_tokens, 0.1, messages)
