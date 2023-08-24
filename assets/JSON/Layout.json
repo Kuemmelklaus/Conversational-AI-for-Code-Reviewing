@@ -1,4 +1,4 @@
-{"lint": [
+{"caial": [
   {
     "lineFrom": "The number of the line where the rating stats represented as an integer",
     "lineTo": "The number of the line where the rating end represented as an integer",

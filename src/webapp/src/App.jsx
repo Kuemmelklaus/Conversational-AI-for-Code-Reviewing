@@ -18,7 +18,7 @@ function App() {
     return JSON.parse(localValue);
   });
   const [reviewedCode, setReviewedCode] = useState(null);
-  const [lint, setLint] = useState(null);
+  const [caial, setCaial] = useState(null);
   const [reviewState, setReviewState] = useState("init");
 
   //store code locally
@@ -78,7 +78,7 @@ function App() {
   }
 
   function handleResponse(data) {
-    setLint(data);
+    setCaial(data);
     setReviewedCode(code);
   }
 
@@ -121,9 +121,9 @@ function App() {
       </div>
       <br />
       <div className="result">
-        {lint != null &&
+        {caial != null &&
           (reviewState === "success" || reviewState === "modified") && (
-            <Result language={language} response={lint} code={reviewedCode} />
+            <Result language={language} response={caial} code={reviewedCode} />
           )}
       </div>
     </div>

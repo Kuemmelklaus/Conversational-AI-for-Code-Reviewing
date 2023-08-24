@@ -20,9 +20,9 @@ function Result({ language, response, code }) {
         <br />
       </span>
       <h3>Critique:</h3>
-      {response.lint.map((item) => {
+      {response.caial.map((item) => {
         return (
-          <span key={response.lint.indexOf(item)}>
+          <span key={response.caial.indexOf(item)}>
             <CodeBlock
               text={getCode(item.lineFrom, item.lineTo)}
               showLineNumbers={true}

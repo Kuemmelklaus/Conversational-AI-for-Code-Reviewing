@@ -1,11 +1,11 @@
 from json import loads
 from apiflask import APIFlask, Schema
 from apiflask.fields import String, Integer, Boolean, List, Field
-from linter import Linter
-from dummylinter import Dlinter
+from caial import Caial
+from dummy import Dummy
 from flask_cors import CORS
 
-app = APIFlask(__name__, title = "Linter", version = "1.0", docs_ui = "swagger-ui", spec_path = "/openapi.yaml")
+app = APIFlask(__name__, title = "Conversational AI", version = "1.0", docs_ui = "swagger-ui", spec_path = "/openapi.yaml")
 cors = CORS(app)
 app.debug = True
 
@@ -17,7 +17,7 @@ This API is trying to give helpful coding advices in Python and hopefully one da
 #root website
 @app.get("/")
 def root():
-    return 'use "POST /linter"'
+    return 'use "POST /caial"'
 
 #health request
 @app.get("/health")
@@ -71,7 +71,7 @@ class Example_Response(Schema):
     total_tokens = Integer(
         metadata = {"title": "Tokens used which contains the request and the response", "example": 2696}
     )
-    lint = List(Field,
+    caial = List(Field,
         metadata = {"title": "Contains the reviews", "example": [{
             "lineFrom": 1,
             "lineTo": 2,
@@ -85,19 +85,19 @@ class Example_Response(Schema):
     ]})
 
 #API request
-@app.post("/linter")
+@app.post("/caial")
 @app.input(Request, location = "json")
 @app.input(Query, location="query")
 @app.output(Example_Response)
-def lint(json_data, query_data):
+def caial(json_data, query_data):
     """
     Reviews code sent in body
     """
     
     def send(model):
-        linter = Linter(json_data["programmingLanguage"], json_data["code"], model)
-        if linter.success:
-            return linter.get_lint()
+        caial = Caial(json_data["programmingLanguage"], json_data["code"], model)
+        if caial.success:
+            return caial.get_conversation()
         return loads('{"success": false, "failReason": "internal"}')
 
     if query_data != {}:
@@ -107,26 +107,11 @@ def lint(json_data, query_data):
             case "gpt-4":
                 return send(query_data["model"])
             case "dummy":
-                dummy = Dlinter(json_data["programmingLanguage"], json_data["code"])
-                return dummy.get_lint()
+                dummy = Dummy(json_data["programmingLanguage"], json_data["code"])
+                return dummy.get_conversation()
             case _:
                 return loads('{"success": false, "failReason": "unsupported Language"}')
             
         
     else:
         return loads('{"success": false, "failReason": "bad query"}')
-    
-    # #dummy
-    # if query_data != {}:
-    #     if query_data["dummy"]:
-    #         dummy = Dlinter(json_data["programmingLanguage"], json_data["code"])
-    #         return dummy.get_lint()
-    #     else:
-    #         return loads('{"success": false}')
-
-    # #API
-    # else:
-    #     linter = Linter(json_data["programmingLanguage"], json_data["code"])
-    #     if linter.success:
-    #         return linter.get_lint()
-    #     return loads('{"success": false}')

@@ -2,7 +2,7 @@ import datetime
 import json
 import time
 
-class Dlinter:
+class Dummy:
 
     # def __init__(self, programmingLanguage, code):
     #     self.dummy = json.loads('{"success": "false"}')
@@ -15,7 +15,7 @@ class Dlinter:
         self.dummy["model"] = "gpt-dummy"
         self.dummy["total_tokens"] = 2546
         self.dummy["date"] = datetime.datetime.now().isoformat()
-        self.dummy["lint"] = [{
+        self.dummy["caial"] = [{
             "lineFrom": 1,
             "lineTo": 1,
             "message": "Foo"
@@ -28,5 +28,5 @@ class Dlinter:
         ]
         time.sleep(2)
 
-    def get_lint(self):
+    def get_conversation(self):
         return self.dummy

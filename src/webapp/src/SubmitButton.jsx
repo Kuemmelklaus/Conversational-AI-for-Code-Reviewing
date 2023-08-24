@@ -14,37 +14,21 @@ function SubmitButton({
       code: JSON.stringify(code),
     };
 
-    // const options = [
-    //   { value: "gpt-3.5-turbo-16k", label: "gpt-3.5-turbo-16k" },
-    //   { value: "gpt-4", label: "gpt-4" },
-    //   { value: "dummy", label: "Dummy" },
-    // ];
-
     //send http request
     const fetchRequest = async () => {
-      // if (options.includes({ value: "dummy", label: "Dummy" })) {
-      //   console.log("a");
-      // }
-
       switch (model) {
         case "gpt-3.5-turbo-16k":
-          var url = `http://127.0.0.1:5000/linter?model=${model}`;
+          var url = `http://127.0.0.1:5000/caial?model=${model}`;
           break;
         case "gpt-4":
-          url = `http://127.0.0.1:5000/linter?model=${model}`;
+          url = `http://127.0.0.1:5000/caial?model=${model}`;
           break;
         case "dummy":
-          url = `http://127.0.0.1:5000/linter?model=${model}`;
+          url = `http://127.0.0.1:5000/caial?model=${model}`;
           break;
         default:
           throw Error("wrong query");
       }
-
-      // if (dummy) {
-      //   var url = "http://127.0.0.1:5000/linter?dummy";
-      // } else {
-      //   url = "http://127.0.0.1:5000/linter";
-      // }
 
       const response = await fetch(url, {
         method: "POST",
