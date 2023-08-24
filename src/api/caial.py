@@ -3,8 +3,11 @@ from os import getenv
 from datetime import datetime
 from json import loads, decoder
 from dotenv import load_dotenv
+from pathlib import Path
 
 class Caial:
+
+    root_path = Path(__file__).parents[2]
 
     #method to create a response with a model, max response tokens, temperature, and message array
     def create_response(self, mod, tok, tmp, msg):
@@ -34,15 +37,13 @@ class Caial:
     #initail prompts + few-shot example
     def create_prompt(self, programming_language, code):
 
-        assets = "../../assets/"
-
         #Python prompt
         if programming_language == "python":
             #load few-shot example
-            with open(f"{assets}PythonExamples/guessinggame.py") as c:
+            with open(f"{self.root_path}/assets/PythonExamples/guessinggame.py") as c:
                 example = c.read()
             #load few-shot answer
-            with open(f"{assets}JSON/guessinggameCaial.json") as g:
+            with open(f"{self.root_path}/assets/JSON/guessinggameCaial.json") as g:
                 example_res = g.read()
             
             messages = [
@@ -56,7 +57,7 @@ class Caial:
         #ABAP prompt
         elif programming_language == "abap":
             #load example layout
-            with open("./JSON/Layout.json", "r") as l:
+            with open(f"{self.root_path}/assets/JSON/Layout.json", "r") as l:
                 layout = l.read()
 
             messages = [
@@ -84,7 +85,7 @@ class Caial:
         max_tokens = 2000
 
         #load the openai api key from the file "API-Key.env"
-        load_dotenv("./API-Key.env")
+        load_dotenv(f"{self.root_path}/src/api/API-Key.env")
         key = getenv("OPENAI_KEY")
         openai.api_key = key
 
