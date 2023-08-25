@@ -85,7 +85,7 @@ class Caial:
         max_tokens = 2000
 
         #load the openai api key from the file "API-Key.env"
-        load_dotenv(f"{self.root_path}/src/api/API-Key.env")
+        load_dotenv(f"{self.root_path}/API-Key.env")
         key = getenv("OPENAI_KEY")
         openai.api_key = key
 

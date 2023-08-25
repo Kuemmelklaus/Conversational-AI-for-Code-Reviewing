@@ -1,6 +1,6 @@
 # ChatGPT ABAP Linter
 
-This API is trying to give helpful coding advices in Python and hopefully one day in ABAP as well.
+This API is trying to give helpful coding advices in Python and ABAP.
 
 # Developer Setup
 

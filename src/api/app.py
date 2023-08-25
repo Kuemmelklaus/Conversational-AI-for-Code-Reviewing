@@ -5,7 +5,7 @@ from caial import Caial
 from dummy import Dummy
 from flask_cors import CORS
 
-app = APIFlask(__name__, title = "Conversational AI", version = "1.0", docs_ui = "swagger-ui", spec_path = "/openapi.yaml")
+app = APIFlask(__name__, title = "Conversational AI for Code Reviewing", version = "1.0", docs_ui = "swagger-ui", spec_path = "/openapi.yaml")
 cors = CORS(app)
 app.debug = True
 

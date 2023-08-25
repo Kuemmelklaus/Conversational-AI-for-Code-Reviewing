@@ -66,7 +66,14 @@ function App() {
   }
 
   function changeModel(data) {
-    setModel(data.value);
+    if (reviewState !== "generating") {
+      setModel(data.value);
+      setReviewState("modified");
+    } else {
+      console.warn(
+        "Do not change model while a request is still processing!"
+      );
+    }
   }
 
   function handleEditorChange(data) {
