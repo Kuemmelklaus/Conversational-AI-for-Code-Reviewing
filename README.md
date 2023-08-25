@@ -6,25 +6,29 @@ This API is trying to give helpful coding advices in Python and ABAP.
 
 Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 
-1. Clone this repository
-2. Create a file named ***API-Key.env*** in the main directory containing your openai API key in the following format:
+1. Clone this repository and install the python and node dependencies
+    ```
+    pip install -r requirements.txt
+    cd src/webapp && npm i
+    ```
+2. Create a file named ***API-Key.env*** in the project's root directory containing your openai API key in the following format:
     ```
     OPENAI_KEY=<your API key>
     ```
-3. create a python virtual environment called ***env***
-4. Install all required python packages inside ***env***
-5. Start the webserver with `flask run`. You can check if the server is running by sending a ***GET*** request to ***http://127.0.0.1:5000/health***
-6. Send a ***POST*** request to ***http://127.0.0.1:5000/linter*** containing a ***application/json*** body in the following format:
+3. The webserver can be started at port 5000 with `./run.sh server`. Optionally, `./run.sh webapp` hosts a webapp at port 3000.  You can check if the server is running by sending a ***GET*** request to ***http://localhost:5000/health***. webapp can be started using `./run.sh webapp`.
+6. Send a ***POST*** request to ***http://localhost:5000/linter*** containing a ***application/json*** body in the following format:
     ```
     {
         "programmingLanguage": "your Programming language",
         "code": "your code"
     }
     ```
-7. Create a docker image of the flask server with the command `docker build -t <name> .`
-8. Run a docker container with the command `docker run -p 5000:5000 --env-file ./API-Key.env <name>`
-9. Inside the ***website*** directory run `npm install` and then `npm start` to run the website that runs on ***http://127.0.0.1:3000***
-10. Create a docker image of the react server with the command `docker build -t <name> ./website` and run it with `docker run -p 3000:3000 <name>`
+
+## Docker Setup
+
+To run the application as a container, the following steps are required in addition to the setup above:
+- Build the docker container: `docker build --tag caial .`
+- Run the container, mounting the api key file: `docker run -it --network=host -v "$(realpath API-Key.env)":/app/API-Key.env caial`
 
 # Directory Tree
 ```
