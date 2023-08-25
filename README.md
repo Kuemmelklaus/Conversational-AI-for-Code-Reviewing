@@ -52,3 +52,7 @@ To run the application as a container, the following steps are required in addit
 - [main.py](https://pythongeeks.org/python-calculator/)
 - [heap.py](https://www.geeksforgeeks.org/python-program-for-heap-sort/)
 - [ABAP examples/](https://github.com/SAP-samples/abap-oo-basics)
+
+# Open issues
+
+- cannot catch errors from openai
