@@ -15,6 +15,7 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
     ```
     OPENAI_KEY=<your API key>
     ```
+<<<<<<< HEAD
 3. The webserver can be started at port 5000 with `./run.sh server`. Optionally, `./run.sh webapp` hosts a webapp at port 3000.  You can check if the server is running by sending a ***GET*** request to ***http://localhost:5000/health***. webapp can be started using `./run.sh webapp`.
 6. Send a ***POST*** request to ***http://localhost:5000/linter*** containing a ***application/json*** body in the following format:
     ```
@@ -29,6 +30,11 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 To run the application as a container, the following steps are required in addition to the setup above:
 - Build the docker container: `docker build --tag caial .`
 - Run the container, mounting the api key file: `docker run -it --network=host -v "$(realpath API-Key.env)":/app/API-Key.env caial`
+=======
+3. Install dependencies
+4. Start the server with `./run.sh server`.
+5. Start the webapp with `./run.sh webapp`.
+>>>>>>> f3ebe9aae66282ba9150ef82ce7e317b22b09ba4
 
 # Directory Tree
 ```
@@ -96,29 +102,3 @@ To run the application as a container, the following steps are required in addit
 - [main.py](https://pythongeeks.org/python-calculator/)
 - [heap.py](https://www.geeksforgeeks.org/python-program-for-heap-sort/)
 - [ABAP examples/](https://github.com/SAP-samples/abap-oo-basics)
-
-![](architecture.drawio.png)
-
-# Todo
-
-- [x] Python Code für's Prototyping verwenden
-- [x] Few-Shot Prompt
-- [x] JSON Validierung mit Retry
-- [x] Code Review vs "Linter"
-- [x] Dev Readme
-- [x] OpenAPI Spec erzeugen über apiflask
-- [x] Dockerisieren des Webservers
-- [x] Standardoutput
-- [x] dockerhub
-- [x] web UI (react) + notizen
-- [x] Dummy Linter via Querparameter: /linter?dummy=true
-- [x] Ausgabe Dummylinter an erwartete JSON Struktur anpassen
-- [x] Live Reload /health in der ReactUI
-
-## Future
-
-- [ ] Iterative Ausgabe via generators()
-
-## Erledigt
-
-- [x] Random Seed - geht nicht

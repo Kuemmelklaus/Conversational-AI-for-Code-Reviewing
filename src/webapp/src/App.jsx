@@ -1,3 +1,5 @@
+// Root React file
+
 import "./App.css";
 import { useEffect, useState } from "react";
 import LangSelect from "./LangSelect";
@@ -51,7 +53,6 @@ function App() {
 
     catchError();
     return () => clearInterval(interval);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function changeLanguage(data) {
@@ -70,9 +71,7 @@ function App() {
       setModel(data.value);
       setReviewState("modified");
     } else {
-      console.warn(
-        "Do not change model while a request is still processing!"
-      );
+      console.warn("Do not change model while a request is still processing!");
     }
   }
 
