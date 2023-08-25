@@ -39,60 +39,16 @@ To run the application as a container, the following steps are required in addit
 # Directory Tree
 ```
 .
-├── ABAPExamples/                               - contains example code in ABAP
-│   ├── zcl_abap_to_json.clas.abap              - used as an input
-│   └── zcl_fs_ref_perf_testing.clas.abap       - used as an input
-├── JSON/                                       - contains JSON files
-│   ├── Layout.json                             - format for the GPT output
-│   ├── LayoutTemplate.json                     - example GPT output
-│   ├── client.json                             - example of POST request body
-│   ├── exampleLint.json                        - was used as a few-shot prompt
-│   ├── guessinggameLint.json                   - used as a few-shot prompt
-│   └── openAPI.json                            - did describe the usage of the webserver according to the openAPI spec
-├── PythonExamples/                             - contains example code in Python
-│   ├── example.py                              - was used as a few-shot prompt
-│   ├── guessinggame.py                         - used as a few-shot prompt
-│   ├── heap.py                                 - used as an input
-│   └── main.py                                 - used as an input
-├── website/                                    - contains the react webserver
-│   ├── public/                                 - default react components
-│   │   ├── favicon.ico                         - 
-│   │   ├── index.html                          - 
-│   │   ├── logo192.png                         - 
-│   │   ├── logo512.png                         - 
-│   │   ├── manifest.json                       - 
-│   │   └── robots.txt                          - 
-│   ├── src/                                    - 
-│   │   ├── App.css                             - website style
-│   │   ├── App.jsx                             - react server root component
-│   │   ├── InputEditor.jsx                     - input editor component
-│   │   ├── LangSelect.jsx                      - language select component
-│   │   ├── Result.jsx                          - output result component
-│   │   ├── SubmitButton.jsx                    - send request button component
-│   │   ├── index.css                           - default react component
-│   │   ├── index.js                            - default react component
-│   │   └── reportWebVitals.js                  - default react component
-│   ├── .dockerignore                           - lists the files ignored by docker
-│   ├── .gitignore                              - lists the files ignored by git
-│   ├── Dockerfile                              - creates a docker image for the react server
-│   ├── README.md                               - default react readme
-│   ├── notes.txt                               - notes about developing with react
-│   ├── package-lock.json                       - npm dependencies
-│   └── package.json                            - website metadata
-├── .dockerignore                               - lists the files ignored by docker
-├── .gitignore                                  - lists the files ignored by git
-├── Dockerfile                                  - creates a docker image for the flask server
+├── assets/                                     - json, python and ABAP files
+├── src/                                        - 
+│   ├── api/                                    - apiflask server
+│   └── webapp/                                 - react website
+├── .dockerignore                               - 
+├── .gitignore                                  - 
+├── Dockerfile                                  - creates a docker image
 ├── README.md                                   - this README
-├── app.py                                      - contains the flask webserver
-├── architecture.drawio.png                     - picture explaining the architecture 
-├── dummielinter.py                             - just returns some message
-├── jsonify.py                                  - script to convert code into the correct format for JSON
-├── linter.py                                   - called by the flask server, sends requests to the openai API
-├── message.py                                  - generates messages in the format used by the openai API
-├── openapi.yml     	                        - describes the usage of the webserver according to the openAPI spec
-├── prompts.txt                                 - contains different prompts
 ├── requirements.txt                            - pip requirements
-└── test.py                                     - script that directly sends requests to the openai API
+└── run.sh                                      - starts either the api server or the react webapp
 ```
 
 # Resources
