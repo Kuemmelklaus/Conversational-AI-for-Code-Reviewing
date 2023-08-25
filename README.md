@@ -11,20 +11,9 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
     ```
     OPENAI_KEY=<your API key>
     ```
-3. create a python virtual environment called ***env***
-4. Install all required python packages inside ***env***
-5. Start the webserver with `flask run`. You can check if the server is running by sending a ***GET*** request to ***http://127.0.0.1:5000/health***
-6. Send a ***POST*** request to ***http://127.0.0.1:5000/linter*** containing a ***application/json*** body in the following format:
-    ```
-    {
-        "programmingLanguage": "your Programming language",
-        "code": "your code"
-    }
-    ```
-7. Create a docker image of the flask server with the command `docker build -t <name> .`
-8. Run a docker container with the command `docker run -p 5000:5000 --env-file ./API-Key.env <name>`
-9. Inside the ***website*** directory run `npm install` and then `npm start` to run the website that runs on ***http://127.0.0.1:3000***
-10. Create a docker image of the react server with the command `docker build -t <name> ./website` and run it with `docker run -p 3000:3000 <name>`
+3. Install dependencies
+4. Start the server with `./run.sh server`.
+5. Start the webapp with `./run.sh webapp`.
 
 # Directory Tree
 ```
@@ -92,27 +81,3 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 - [main.py](https://pythongeeks.org/python-calculator/)
 - [heap.py](https://www.geeksforgeeks.org/python-program-for-heap-sort/)
 - [ABAP examples/](https://github.com/SAP-samples/abap-oo-basics)
-
-# Todo
-
-- [x] Python Code für's Prototyping verwenden
-- [x] Few-Shot Prompt
-- [x] JSON Validierung mit Retry
-- [x] Code Review vs "Linter"
-- [x] Dev Readme
-- [x] OpenAPI Spec erzeugen über apiflask
-- [x] Dockerisieren des Webservers
-- [x] Standardoutput
-- [x] dockerhub
-- [x] web UI (react) + notizen
-- [x] Dummy Linter via Querparameter: /linter?dummy=true
-- [x] Ausgabe Dummylinter an erwartete JSON Struktur anpassen
-- [x] Live Reload /health in der ReactUI
-
-## Future
-
-- [ ] Iterative Ausgabe via generators()
-
-## Erledigt
-
-- [x] Random Seed - geht nicht
