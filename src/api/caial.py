@@ -1,3 +1,5 @@
+# Class Caial is called by the flask server and sends requests to the openai API
+
 import openai 
 from os import getenv
 from datetime import datetime

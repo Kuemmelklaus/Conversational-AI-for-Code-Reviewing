@@ -2,12 +2,8 @@
 .gitignore
 API-Key.env
 README.md
-architecture.drawio.png
 __pycache__
 env
-prompts.txt
-test.py
-dummielinter.py
 ABAPExamples
 jsonify.py
 openapi.yml
@@ -19,3 +15,4 @@ PythonExamples/example.py
 PythonExamples/heap.py
 PythonExamples/main.py
 website
+node_modules

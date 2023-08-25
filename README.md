@@ -93,8 +93,6 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 - [heap.py](https://www.geeksforgeeks.org/python-program-for-heap-sort/)
 - [ABAP examples/](https://github.com/SAP-samples/abap-oo-basics)
 
-![](architecture.drawio.png)
-
 # Todo
 
 - [x] Python Code für's Prototyping verwenden

@@ -6,8 +6,6 @@ function SubmitButton({
   handleReviewState,
 }) {
   function sendPostRequest(language, code) {
-    handleReviewState("generating");
-
     //creating request body
     const jsonData = {
       programmingLanguage: language,
@@ -16,6 +14,8 @@ function SubmitButton({
 
     //send http request
     const fetchRequest = async () => {
+      handleReviewState("generating");
+
       switch (model) {
         case "gpt-3.5-turbo-16k":
           var url = `http://127.0.0.1:5000/caial?model=${model}`;
