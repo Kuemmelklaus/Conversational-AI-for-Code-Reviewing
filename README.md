@@ -15,8 +15,8 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
     ```
     OPENAI_KEY=<your API key>
     ```
-3. The webserver can be started at port 5000 with `./run.sh server`. Optionally, `./run.sh webapp` hosts a webapp at port 3000.  You can check if the server is running by sending a ***GET*** request to ***http://localhost:5000/health***. webapp can be started using `./run.sh webapp`.
-6. Send a ***POST*** request to ***http://localhost:5000/linter*** containing a ***application/json*** body in the following format:
+3. The webserver can be started at port 5000 with `./run.sh server`. Optionally, `./run.sh webapp` hosts a webapp at port 3000.  You can check if the server is running by sending a ***GET*** request to ***http://localhost:5000/health***. The webapp can be started using `./run.sh webapp`.
+6. Send a ***POST*** request to ***http://localhost:5000/caial?model=gpt-4*** containing a ***application/json*** body in the following format:
     ```
     {
         "programmingLanguage": "your Programming language",
