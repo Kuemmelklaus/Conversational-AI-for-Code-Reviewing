@@ -130,7 +130,7 @@ def caial(json_data, query_data):
                     json_data["programmingLanguage"], json_data["code"])
                 return dummy.get_conversation()
             case _:
-                return loads('{"success": false, "failReason": "unsupported Language"}')
+                return loads('{"success": false, "failReason": "unsupported model"}')
 
     else:
         return loads('{"success": false, "failReason": "bad query"}')
