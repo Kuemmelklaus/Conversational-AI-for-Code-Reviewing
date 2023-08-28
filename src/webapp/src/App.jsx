@@ -23,6 +23,12 @@ function App() {
   const [caial, setCaial] = useState(null);
   const [reviewState, setReviewState] = useState("init");
 
+  const modelOptions = [
+    { value: "gpt-3.5-turbo-16k", label: "gpt-3.5-turbo-16k" },
+    { value: "gpt-4", label: "gpt-4" },
+    { value: "dummy", label: "Dummy" },
+  ];
+
   //store code locally
   useEffect(() => {
     localStorage.setItem("CODE", JSON.stringify(code));
@@ -105,7 +111,11 @@ function App() {
           Language:&emsp;
           <LangSelect onChange={changeLanguage} reviewState={reviewState} />
           &emsp;&emsp; Model:&emsp;
-          <ModelSelect onChange={changeModel} reviewState={reviewState} />
+          <ModelSelect
+            onChange={changeModel}
+            reviewState={reviewState}
+            modelOptions={modelOptions}
+          />
         </div>
         <InputEditor
           language={language}
@@ -118,6 +128,7 @@ function App() {
             language={language}
             code={code}
             model={model}
+            modelOptions={modelOptions}
             handleResponse={handleResponse}
             handleReviewState={handleReviewState}
           />

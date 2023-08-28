@@ -1,12 +1,6 @@
 import Select from "react-select";
 
-function ModelSelect({ onChange, reviewState }) {
-  const options = [
-    { value: "gpt-3.5-turbo-16k", label: "gpt-3.5-turbo-16k" },
-    { value: "gpt-4", label: "gpt-4" },
-    { value: "dummy", label: "Dummy" },
-  ];
-
+function ModelSelect({ onChange, reviewState, modelOptions }) {
   const theme = (theme) => ({
     ...theme,
     borderRadius: 5,
@@ -24,8 +18,8 @@ function ModelSelect({ onChange, reviewState }) {
 
   return (
     <Select
-      options={options}
-      defaultValue={options[0]}
+      options={modelOptions}
+      defaultValue={modelOptions[0]}
       onChange={onChange}
       theme={theme}
       isDisabled={reviewState === "generating" ? true : false}

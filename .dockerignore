@@ -4,20 +4,4 @@ node_modules
 API-Key.env
 README.md
 __pycache__
-<<<<<<< HEAD
 env
-=======
-env
-ABAPExamples
-jsonify.py
-openapi.yml
-JSON/client.json
-JSON/exampleLint.json
-JSON/LayoutTemplate.json
-JSON/openAPI.json
-PythonExamples/example.py
-PythonExamples/heap.py
-PythonExamples/main.py
-website
-node_modules
->>>>>>> f3ebe9aae66282ba9150ef82ce7e317b22b09ba4

@@ -2,6 +2,7 @@ function SubmitButton({
   language,
   code,
   model,
+  modelOptions,
   handleResponse,
   handleReviewState,
 }) {
@@ -12,22 +13,14 @@ function SubmitButton({
       code: JSON.stringify(code),
     };
 
-    //send http request
+    //send http request to flask server
     const fetchRequest = async () => {
       handleReviewState("generating");
 
-      switch (model) {
-        case "gpt-3.5-turbo-16k":
-          var url = `http://127.0.0.1:5000/caial?model=${model}`;
-          break;
-        case "gpt-4":
-          url = `http://127.0.0.1:5000/caial?model=${model}`;
-          break;
-        case "dummy":
-          url = `http://127.0.0.1:5000/caial?model=${model}`;
-          break;
-        default:
-          throw Error("wrong query");
+      if(modelOptions.some((dict) => dict.value === model)) {
+        var url = `http://127.0.0.1:5000/caial?model=${model}`;
+      } else {
+        throw Error("wrong query");
       }
 
       const response = await fetch(url, {

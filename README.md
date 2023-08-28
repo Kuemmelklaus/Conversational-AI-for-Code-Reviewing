@@ -1,4 +1,4 @@
-# ChatGPT ABAP Linter
+# Conversational-AI-for-Code-Reviewing
 
 This API is trying to give helpful coding advices in Python and ABAP.
 
@@ -15,7 +15,6 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
     ```
     OPENAI_KEY=<your API key>
     ```
-<<<<<<< HEAD
 3. The webserver can be started at port 5000 with `./run.sh server`. Optionally, `./run.sh webapp` hosts a webapp at port 3000.  You can check if the server is running by sending a ***GET*** request to ***http://localhost:5000/health***. webapp can be started using `./run.sh webapp`.
 6. Send a ***POST*** request to ***http://localhost:5000/linter*** containing a ***application/json*** body in the following format:
     ```
@@ -30,69 +29,20 @@ Developer setup for UNIX systems (Windows/WSL, Linux, Mac).
 To run the application as a container, the following steps are required in addition to the setup above:
 - Build the docker container: `docker build --tag caial .`
 - Run the container, mounting the api key file: `docker run -it --network=host -v "$(realpath API-Key.env)":/app/API-Key.env caial`
-=======
-3. Install dependencies
-4. Start the server with `./run.sh server`.
-5. Start the webapp with `./run.sh webapp`.
->>>>>>> f3ebe9aae66282ba9150ef82ce7e317b22b09ba4
 
 # Directory Tree
 ```
 .
-├── ABAPExamples/                               - contains example code in ABAP
-│   ├── zcl_abap_to_json.clas.abap              - used as an input
-│   └── zcl_fs_ref_perf_testing.clas.abap       - used as an input
-├── JSON/                                       - contains JSON files
-│   ├── Layout.json                             - format for the GPT output
-│   ├── LayoutTemplate.json                     - example GPT output
-│   ├── client.json                             - example of POST request body
-│   ├── exampleLint.json                        - was used as a few-shot prompt
-│   ├── guessinggameLint.json                   - used as a few-shot prompt
-│   └── openAPI.json                            - did describe the usage of the webserver according to the openAPI spec
-├── PythonExamples/                             - contains example code in Python
-│   ├── example.py                              - was used as a few-shot prompt
-│   ├── guessinggame.py                         - used as a few-shot prompt
-│   ├── heap.py                                 - used as an input
-│   └── main.py                                 - used as an input
-├── website/                                    - contains the react webserver
-│   ├── public/                                 - default react components
-│   │   ├── favicon.ico                         - 
-│   │   ├── index.html                          - 
-│   │   ├── logo192.png                         - 
-│   │   ├── logo512.png                         - 
-│   │   ├── manifest.json                       - 
-│   │   └── robots.txt                          - 
-│   ├── src/                                    - 
-│   │   ├── App.css                             - website style
-│   │   ├── App.jsx                             - react server root component
-│   │   ├── InputEditor.jsx                     - input editor component
-│   │   ├── LangSelect.jsx                      - language select component
-│   │   ├── Result.jsx                          - output result component
-│   │   ├── SubmitButton.jsx                    - send request button component
-│   │   ├── index.css                           - default react component
-│   │   ├── index.js                            - default react component
-│   │   └── reportWebVitals.js                  - default react component
-│   ├── .dockerignore                           - lists the files ignored by docker
-│   ├── .gitignore                              - lists the files ignored by git
-│   ├── Dockerfile                              - creates a docker image for the react server
-│   ├── README.md                               - default react readme
-│   ├── notes.txt                               - notes about developing with react
-│   ├── package-lock.json                       - npm dependencies
-│   └── package.json                            - website metadata
-├── .dockerignore                               - lists the files ignored by docker
-├── .gitignore                                  - lists the files ignored by git
-├── Dockerfile                                  - creates a docker image for the flask server
+├── assets/                                     - json, python and ABAP files
+├── src/
+│   ├── api/                                    - apiflask server
+│   └── webapp/                                 - react website
+├── .dockerignore
+├── .gitignore
+├── Dockerfile                                  - creates a docker image
 ├── README.md                                   - this README
-├── app.py                                      - contains the flask webserver
-├── architecture.drawio.png                     - picture explaining the architecture 
-├── dummielinter.py                             - just returns some message
-├── jsonify.py                                  - script to convert code into the correct format for JSON
-├── linter.py                                   - called by the flask server, sends requests to the openai API
-├── message.py                                  - generates messages in the format used by the openai API
-├── openapi.yml     	                        - describes the usage of the webserver according to the openAPI spec
-├── prompts.txt                                 - contains different prompts
 ├── requirements.txt                            - pip requirements
-└── test.py                                     - script that directly sends requests to the openai API
+└── run.sh                                      - starts either the api server or the react webapp
 ```
 
 # Resources
@@ -102,3 +52,10 @@ To run the application as a container, the following steps are required in addit
 - [main.py](https://pythongeeks.org/python-calculator/)
 - [heap.py](https://www.geeksforgeeks.org/python-program-for-heap-sort/)
 - [ABAP examples/](https://github.com/SAP-samples/abap-oo-basics)
+
+# Next Steps
+
+- implement other AIs not just openai
+- catch errors from openai (no connection, tokenlimit exceeded, not enough credit)
+- handling multiple files with respect to their directory structure
+- integration in IDE
