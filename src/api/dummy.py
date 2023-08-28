@@ -2,6 +2,7 @@ import datetime
 import json
 import time
 
+
 class Dummy:
 
     # def __init__(self, programmingLanguage, code):
@@ -20,7 +21,7 @@ class Dummy:
             "lineTo": 1,
             "message": "Foo"
         },
-        {
+            {
             "lineFrom": 2,
             "lineTo": 40,
             "message": "Bar"

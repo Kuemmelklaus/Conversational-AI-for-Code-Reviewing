@@ -1,11 +1,12 @@
 # Class Caial is called by the flask server and sends requests to the openai API
 
-import openai 
+import openai
 from os import getenv
 from datetime import datetime
 from json import loads, decoder
 from dotenv import load_dotenv
 from pathlib import Path
+
 
 class Caial:
 
@@ -14,11 +15,11 @@ class Caial:
     # method to create a response with a model, max response tokens, temperature, and message array
     def create_response(self, mod, tok, tmp, msg):
         response = openai.ChatCompletion.create(
-            model = mod,
-            max_tokens = tok,
-            temperature = tmp,
-            n = 1,
-            messages = msg
+            model=mod,
+            max_tokens=tok,
+            temperature=tmp,
+            n=1,
+            messages=msg
         )
         return response
 
@@ -32,7 +33,7 @@ class Caial:
         conversation["programmingLanguage"] = programming_language
         conversation["success"] = success
         return conversation
-    
+
     def create_message(self, role, message):
         return {"role": role, "content": message}
 
@@ -47,12 +48,14 @@ class Caial:
             # load few-shot answer
             with open(f"{self.root_path}/assets/JSON/guessinggameCaial.json") as g:
                 example_res = g.read()
-            
+
             messages = [
                 self.create_message("system", f"Your task is to review code in the {programming_language} programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo. The message can not include inconsistent Indentations or missing docstrings."),
-                self.create_message("user", f"Here is some Python code:\n{example}"),
+                self.create_message(
+                    "user", f"Here is some Python code:\n{example}"),
                 self.create_message("assistant", example_res),
-                self.create_message("user", f"Great response! Here is some more {programming_language} code:\n{code}")
+                self.create_message(
+                    "user", f"Great response! Here is some more {programming_language} code:\n{code}")
             ]
             return messages
 
@@ -64,7 +67,8 @@ class Caial:
 
             messages = [
                 self.create_message("system", f"Your task is to review code in the {programming_language} programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains an array inside the field 'caial'. All objects inside 'caial' contain the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo. The message can not include inconsistent Indentations or missing docstrings. Your layout should look like this: {layout}"),
-                self.create_message("user", f"Here is some {programming_language} code:\n{code}")
+                self.create_message(
+                    "user", f"Here is some {programming_language} code:\n{code}")
             ]
             return messages
 
@@ -107,24 +111,29 @@ class Caial:
                 print(response1)
                 print("\n========================================\n")
                 self.conversation = loads(choices1.message.content)
-                self.conversation = self.add_metadata(self.conversation, model, response1, code, programming_language, True)
+                self.conversation = self.add_metadata(
+                    self.conversation, model, response1, code, programming_language, True)
                 self.success = True
                 print("Successful after one try.")
 
             except decoder.JSONDecodeError:
                 print("Response is not in JSON!\nRetrying ...")
-                messages.append(self.create_message("assistant", choices1.message.content))
-                messages.append(self.create_message("user", "Your response was not a valid JSON. Please try again without any strings attached to your response."))
+                messages.append(self.create_message(
+                    "assistant", choices1.message.content))
+                messages.append(self.create_message(
+                    "user", "Your response was not a valid JSON. Please try again without any strings attached to your response."))
 
                 # creating 2nd response
-                response2 = self.create_response(model, max_tokens + response1.usage.completion_tokens, 0.1, messages)
+                response2 = self.create_response(
+                    model, max_tokens + response1.usage.completion_tokens, 0.1, messages)
 
                 for choices2 in response2["choices"]:
                     try:
                         print(response2)
                         print("\n========================================\n")
                         self.conversation = loads(choices2.message.content)
-                        self.conversation = self.add_metadata(self.conversation, model, response2, code, programming_language, True)
+                        self.conversation = self.add_metadata(
+                            self.conversation, model, response2, code, programming_language, True)
                         self.success = True
                         print("Successful after two tries.")
                     except decoder.JSONDecodeError:
