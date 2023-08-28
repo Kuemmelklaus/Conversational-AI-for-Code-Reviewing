@@ -1,4 +1,4 @@
-# ChatGPT ABAP Linter
+# Conversational-AI-for-Code-Reviewing
 
 This API is trying to give helpful coding advices in Python and ABAP.
 
@@ -34,11 +34,11 @@ To run the application as a container, the following steps are required in addit
 ```
 .
 ├── assets/                                     - json, python and ABAP files
-├── src/                                        - 
+├── src/
 │   ├── api/                                    - apiflask server
 │   └── webapp/                                 - react website
-├── .dockerignore                               - 
-├── .gitignore                                  - 
+├── .dockerignore
+├── .gitignore
 ├── Dockerfile                                  - creates a docker image
 ├── README.md                                   - this README
 ├── requirements.txt                            - pip requirements
@@ -55,7 +55,7 @@ To run the application as a container, the following steps are required in addit
 
 # Next Steps
 
-- implement more than just openai
-- catch errors from openai (no connection, tokenlimit exceeded, not enough money)
-- implementation of handling multiple files
+- implement other AIs not just openai
+- catch errors from openai (no connection, tokenlimit exceeded, not enough credit)
+- handling multiple files with respect to their directory structure
 - integration in IDE
