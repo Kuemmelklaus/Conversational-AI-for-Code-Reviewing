@@ -17,8 +17,4 @@ RUN pip3 install --no-cache-dir -r ./requirements.txt
 
 EXPOSE 3000
 EXPOSE 5000
-<<<<<<< HEAD
-=======
-
->>>>>>> 01e31fff979a76116eaff92b4de83cd612f945fe
 CMD ./run.sh server & ./run.sh webapp
