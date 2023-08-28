@@ -13,7 +13,7 @@ function SubmitButton({
       code: JSON.stringify(code),
     };
 
-    //send http request
+    //send http request to flask server
     const fetchRequest = async () => {
       handleReviewState("generating");
 

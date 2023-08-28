@@ -11,7 +11,7 @@ class Caial:
 
     root_path = Path(__file__).parents[2]
 
-    #method to create a response with a model, max response tokens, temperature, and message array
+    # method to create a response with a model, max response tokens, temperature, and message array
     def create_response(self, mod, tok, tmp, msg):
         response = openai.ChatCompletion.create(
             model = mod,
@@ -22,7 +22,7 @@ class Caial:
         )
         return response
 
-    #add metadata to response JSON
+    # add metadata to response JSON
     def add_metadata(self, conversation, model, response, code, programming_language, success):
         conversation["date"] = datetime.now().isoformat()
         conversation["model"] = model
@@ -36,15 +36,15 @@ class Caial:
     def create_message(self, role, message):
         return {"role": role, "content": message}
 
-    #initail prompts + few-shot example
+    # initail prompts + few-shot example
     def create_prompt(self, programming_language, code):
 
-        #Python prompt
+        # Python prompt
         if programming_language == "python":
-            #load few-shot example
+            # load few-shot example
             with open(f"{self.root_path}/assets/PythonExamples/guessinggame.py") as c:
                 example = c.read()
-            #load few-shot answer
+            # load few-shot answer
             with open(f"{self.root_path}/assets/JSON/guessinggameCaial.json") as g:
                 example_res = g.read()
             
@@ -56,9 +56,9 @@ class Caial:
             ]
             return messages
 
-        #ABAP prompt
+        # ABAP prompt
         elif programming_language == "abap":
-            #load example layout
+            # load example layout
             with open(f"{self.root_path}/assets/JSON/Layout.json", "r") as l:
                 layout = l.read()
 
@@ -68,37 +68,37 @@ class Caial:
             ]
             return messages
 
-        #unsupported programming language
+        # unsupported programming language
         else:
             raise Exception("Unsupported programming language!")
 
     def get_conversation(self):
         return self.conversation
 
-    #Constuct containing API request
-    def __init__(self, programming_language, code, model):
+    # Constuct containing API request
+    def __init__(self, programming_language, code, model, max_tokens):
 
         self.success = False
 
-        #Select the GPT model ("gpt-3.5-turbo", "gpt-4", "gpt-3.5-turbo-16k" ...)
+        # Select the GPT model ("gpt-3.5-turbo", "gpt-4", "gpt-3.5-turbo-16k" ...)
         # model = "gpt-3.5-turbo-16k"
 
-        #Select the maximum response tokens
-        max_tokens = 2000
+        # Select the maximum response tokens
+        # max_tokens = 2000
 
-        #load the openai api key from the file "API-Key.env"
+        # load the openai api key from the file "API-Key.env"
         load_dotenv(f"{self.root_path}/API-Key.env")
         key = getenv("OPENAI_KEY")
         openai.api_key = key
 
-        #initail prompts + few-shot example
+        # initail prompts + few-shot example
         try:
             messages = self.create_prompt(programming_language, code)
         except Exception as exception:
             print(exception)
             quit()
 
-        #generate response
+        # generate response
         print("Generating response ...")
         response1 = self.create_response(model, max_tokens, 0.1, messages)
 
@@ -116,7 +116,7 @@ class Caial:
                 messages.append(self.create_message("assistant", choices1.message.content))
                 messages.append(self.create_message("user", "Your response was not a valid JSON. Please try again without any strings attached to your response."))
 
-                #creating 2nd response
+                # creating 2nd response
                 response2 = self.create_response(model, max_tokens + response1.usage.completion_tokens, 0.1, messages)
 
                 for choices2 in response2["choices"]:
