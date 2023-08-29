@@ -14,11 +14,12 @@ class Caial:
 
     # method to create a response with a model, max response tokens, temperature, and message array
     def create_response(
-            self,
-            mod: str,
-            tok: int,
-            tmp: float,
-            msg: list[dict[str, str]]):
+        self,
+        mod: str,
+        tok: int,
+        tmp: float,
+        msg: list[dict[str, str]]
+    ):
         response = openai.ChatCompletion.create(
             model=mod,
             max_tokens=tok,
