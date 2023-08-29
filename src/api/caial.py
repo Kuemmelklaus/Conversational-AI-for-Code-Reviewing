@@ -157,7 +157,13 @@ class Caial:
                         print("\n========================================\n")
                         self.conversation = loads(choices2.message.content)
                         self.conversation = self.add_metadata(
-                            conversation=self.conversation, model=model, response=response2, code=code, programming_language=programming_language, success=True)
+                            conversation=self.conversation,
+                            model=model,
+                            response=response2,
+                            code=code,
+                            programming_language=programming_language,
+                            success=True
+                        )
                         self.success = True
                         print("Successful after two tries.")
                     except decoder.JSONDecodeError:
