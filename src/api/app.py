@@ -124,7 +124,7 @@ def caial(json_data, query_data):
             case "gpt-3.5-turbo-16k":
                 return send(model=query_data["model"], max_tokens=12000)
             case "gpt-4":
-                return send(model=query_data["model"], max_tokens=6000)
+                return send(model=query_data["model"], max_tokens=5000)
             case "dummy":
                 dummy = Dummy(
                     json_data["programmingLanguage"], json_data["code"])
