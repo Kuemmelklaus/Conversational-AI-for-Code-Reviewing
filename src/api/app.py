@@ -112,9 +112,9 @@ def caial(json_data, query_data):
     Reviews code sent in body
     """
 
-    def send(model, max_tokens):
-        caial = Caial(json_data["programmingLanguage"],
-                      json_data["code"], model, max_tokens)
+    def send(model: str, max_tokens: int):
+        caial = Caial(programming_language=json_data["programmingLanguage"],
+                      code=json_data["code"], model=model, max_tokens=max_tokens)
         if caial.success:
             return caial.get_conversation()
         return loads('{"success": false, "failReason": "internal"}')
@@ -122,9 +122,9 @@ def caial(json_data, query_data):
     if query_data != {}:
         match query_data["model"]:
             case "gpt-3.5-turbo-16k":
-                return send(query_data["model"], 12000)
+                return send(model=query_data["model"], max_tokens=12000)
             case "gpt-4":
-                return send(query_data["model"], 6000)
+                return send(model=query_data["model"], max_tokens=6000)
             case "dummy":
                 dummy = Dummy(
                     json_data["programmingLanguage"], json_data["code"])
