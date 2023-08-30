@@ -13,7 +13,13 @@ class Caial:
     root_path = Path(__file__).parents[2]
 
     # method to create a response with a model, max response tokens, temperature, and message array
-    def create_response(self, mod, tok, tmp, msg):
+    def create_response(
+        self,
+        mod: str,
+        tok: int,
+        tmp: float,
+        msg: list[dict[str, str]]
+    ):
         response = openai.ChatCompletion.create(
             model=mod,
             max_tokens=tok,
@@ -24,7 +30,15 @@ class Caial:
         return response
 
     # add metadata to response JSON
-    def add_metadata(self, conversation, model, response, code, programming_language, success):
+    def add_metadata(
+        self,
+        conversation: dict,
+        model: str,
+        response,
+        code: str,
+        programming_language: str,
+        success: bool
+    ) -> dict:
         conversation["date"] = datetime.now().isoformat()
         conversation["model"] = model
         conversation["total_tokens"] = response.usage.total_tokens
@@ -34,11 +48,11 @@ class Caial:
         conversation["success"] = success
         return conversation
 
-    def create_message(self, role, message):
+    def create_message(self, role: str, message: str) -> dict[str, str]:
         return {"role": role, "content": message}
 
     # initail prompts + few-shot example
-    def create_prompt(self, programming_language, code):
+    def create_prompt(self, programming_language: str, code: str) -> list[dict[str, str]]:
 
         # Python prompt
         if programming_language == "python":
@@ -50,7 +64,8 @@ class Caial:
                 example_res = g.read()
 
             messages = [
-                self.create_message("system", f"Your task is to review code in the {programming_language} programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo. The message can not include inconsistent Indentations or missing docstrings."),
+                self.create_message(
+                    "system", f"Your task is to review code in the {programming_language} programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo. The message can not include inconsistent Indentations or missing docstrings."),
                 self.create_message(
                     "user", f"Here is some Python code:\n{example}"),
                 self.create_message("assistant", example_res),
@@ -66,7 +81,8 @@ class Caial:
                 layout = l.read()
 
             messages = [
-                self.create_message("system", f"Your task is to review code in the {programming_language} programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains an array inside the field 'caial'. All objects inside 'caial' contain the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo. The message can not include inconsistent Indentations or missing docstrings. Your layout should look like this: {layout}"),
+                self.create_message(
+                    "system", f"Your task is to review code in the {programming_language} programming language and your purpose is to give helpful messages regarding coding mistakes or bad habits. You always answer in the JSON format, which contains an array inside the field 'caial'. All objects inside 'caial' contain the fields 'lineFrom', 'lineTo' and 'message'. The message field contains the criticism of the code between the fields lineFrom and lineTo. The message can not include inconsistent Indentations or missing docstrings. Your layout should look like this: {layout}"),
                 self.create_message(
                     "user", f"Here is some {programming_language} code:\n{code}")
             ]
@@ -80,7 +96,7 @@ class Caial:
         return self.conversation
 
     # Constuct containing API request
-    def __init__(self, programming_language, code, model, max_tokens):
+    def __init__(self, programming_language: str, code: str, model: str, max_tokens: int):
 
         self.success = False
 
@@ -97,14 +113,16 @@ class Caial:
 
         # initail prompts + few-shot example
         try:
-            messages = self.create_prompt(programming_language, code)
+            messages = self.create_prompt(
+                programming_language=programming_language, code=code)
         except Exception as exception:
             print(exception)
             quit()
 
         # generate response
         print("Generating response ...")
-        response1 = self.create_response(model, max_tokens, 0.1, messages)
+        response1 = self.create_response(
+            mod=model, tok=max_tokens, tmp=0.1, msg=messages)
 
         for choices1 in response1["choices"]:
             try:
@@ -112,7 +130,13 @@ class Caial:
                 print("\n========================================\n")
                 self.conversation = loads(choices1.message.content)
                 self.conversation = self.add_metadata(
-                    self.conversation, model, response1, code, programming_language, True)
+                    conversation=self.conversation,
+                    model=model,
+                    response=response1,
+                    code=code,
+                    programming_language=programming_language,
+                    success=True
+                )
                 self.success = True
                 print("Successful after one try.")
 
@@ -125,7 +149,7 @@ class Caial:
 
                 # creating 2nd response
                 response2 = self.create_response(
-                    model, max_tokens + response1.usage.completion_tokens, 0.1, messages)
+                    mod=model, tok=max_tokens + response1.usage.completion_tokens, tmp=0.1, msg=messages)
 
                 for choices2 in response2["choices"]:
                     try:
@@ -133,7 +157,13 @@ class Caial:
                         print("\n========================================\n")
                         self.conversation = loads(choices2.message.content)
                         self.conversation = self.add_metadata(
-                            self.conversation, model, response2, code, programming_language, True)
+                            conversation=self.conversation,
+                            model=model,
+                            response=response2,
+                            code=code,
+                            programming_language=programming_language,
+                            success=True
+                        )
                         self.success = True
                         print("Successful after two tries.")
                     except decoder.JSONDecodeError:

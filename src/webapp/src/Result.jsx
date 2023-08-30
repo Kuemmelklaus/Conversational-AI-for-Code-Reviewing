@@ -15,6 +15,10 @@ function Result({ language, response, code }) {
       <span>
         Model: {response.model}
         <br />
+        Total Tokens: {response.total_tokens}
+        <br />
+        Request Tokens: {response.total_tokens - response.completion_tokens}
+        <br />
         Completion Tokens: {response.completion_tokens}
         <br />
         <br />
