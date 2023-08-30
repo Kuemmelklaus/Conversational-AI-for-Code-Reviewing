@@ -39,7 +39,7 @@ def health():
 class Request(Schema):
     programmingLanguage = String(
         required=True,
-        metadata={"title": "Programming language", "example": "Python"}
+        metadata={"title": "Programming language", "example": "python"}
     )
     code = String(
         required=True,
