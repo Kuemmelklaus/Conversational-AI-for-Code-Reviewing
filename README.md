@@ -35,8 +35,8 @@ To run the application as a container, the following steps are required in addit
 .
 ├── assets/                                     - json, python and ABAP files
 ├── src/
-│   ├── api/                                    - apiflask server
-│   └── webapp/                                 - react website
+│   ├── api/                                    - apiflask webserver
+│   └── webapp/                                 - react webapp
 ├── .dockerignore
 ├── .gitignore
 ├── Dockerfile                                  - creates a docker image
@@ -44,6 +44,9 @@ To run the application as a container, the following steps are required in addit
 ├── requirements.txt                            - pip requirements
 └── run.sh                                      - starts either the api server or the react webapp
 ```
+
+# Architecture
+![](architecture.drawio.png)
 
 # Resources
 
